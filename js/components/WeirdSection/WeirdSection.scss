@@ -1,0 +1,15 @@
+#weird__section{
+  padding:40px;
+  display: flex;
+  justify-content: space-around;
+  background-image: url('../../../assets/yellow-bg.png');
+  div{
+    width:25%;
+    text-align: center;
+    line-height: 1.5rem;
+    h3{
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+  }
+}

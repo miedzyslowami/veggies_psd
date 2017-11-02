@@ -1,0 +1,47 @@
+.slider__1{
+  background-image: url('../../../assets/hero01.png');
+}
+.slider__2{
+  background-image: url('../../../assets/hero02.png');
+}
+
+#header{
+background-repeat: no-repeat;
+background-size: cover;
+height: 518px;
+h1{
+text-indent:-100%;
+line-height: 0;
+font-size: 0;
+}
+nav{
+  display:block;
+  height: 150px;
+  ul{
+    padding:20px;
+    li{
+      display: inline-block;
+      float: right;
+      padding: 20px 25px;
+    }
+    &:after{
+      clear:both;
+      content:'',attr();
+      display:block;
+    }
+  }
+}
+
+.slider__text{
+    float: right;
+    padding: 50px;
+    width: 38%;
+    font-size: 2.3rem;
+    text-align: center;
+    #divider{
+      width: 46%;
+      padding-top: 35px;
+    }
+}
+
+}
