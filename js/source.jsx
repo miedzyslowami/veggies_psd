@@ -6,6 +6,7 @@ import AboutUs from './components/AboutUs/AboutUs.jsx';
 import MenuCart from './components/MenuCart/MenuCart.jsx';
 import Specials from './components/Specials/Specials.jsx';
 import WeirdSection from './components/WeirdSection/WeirdSection.jsx';
+import Footer from './components/Footer/Footer.jsx';
 import scss from '../index.scss';
 class App extends React.Component {
     render() {
@@ -17,6 +18,7 @@ class App extends React.Component {
             <AboutUs/>
             <MenuCart/>
             <Contact/>
+            <Footer/>
           </div>
         )
     }

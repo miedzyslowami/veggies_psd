@@ -1,7 +1,35 @@
-.menu__cart__position{
-  width:50%;
-  box-sizing: border-box;
-  .menu__cart__position__line{
-    display: flex;
-  }
-}
+    .menu__cart__position{
+      width:50%;
+      box-sizing: border-box;
+      text-align: left;
+      padding: 8px;
+
+      .menu__cart__position__line{
+          display: flex;
+          justify-content: space-between;
+          background-image: radial-gradient(#333030 1px, white 0px);
+          background-size: 11px 11px;
+          background-repeat:repeat-x;
+          background-position: left bottom;
+          div{
+              padding:1em 0 0 0;
+               background-color: white;
+          }
+          .title{
+              text-transform: uppercase;
+              letter-spacing: 1px;
+          }
+          .price{
+              font-weight: 500;
+              color:#333030;
+          }
+
+           & + div,& >div{
+               text-align: left;
+               margin:0;
+           }
+      }
+      .ingridients{
+          font-style: italic;
+      }
+    }

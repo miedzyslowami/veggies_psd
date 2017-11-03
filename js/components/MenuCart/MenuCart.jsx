@@ -2,35 +2,38 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import scss from './MenuCart.scss';
 import Divider from '../Divider/Divider.jsx';
-import Starters from '../Starters/Starters.jsx';
-import Desserts from '../Desserts/Desserts.jsx';
-import Drinks from '../Drinks/Drinks.jsx';
-import MainDishes from '../MainDishes/MainDishes.jsx';
+import MenuCartPosition from '../MenuCartPosition/MenuCartPosition.jsx';
+import menuPositions from '../../data/data.js';
 
 class MenuCart extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            currentPage:3,
+            currentPage:'starters',
             cartPage:[
                 {name:'Starters',
-                component: <Starters/>},
+                type: 'starters'},
                 {name:'Main Dishes',
-                component: <MainDishes/>},
+                type: 'mainDishes'},
                 {name:'Desserts',
-                component: <Desserts/>},
+                type: 'desserts'},
                 {name:'Drinks',
-                component: <Drinks/>}],
+                type: 'drinks'}],
+                positions: Object.values(menuPositions)
             }
     }
 
-    goToPAge = (e) =>{
-        this.setState({currentPage:parseInt(e.target.dataset.id)})
+    goToPage = (e) =>{
+        this.setState({currentPage:e.target.dataset.type});
     }
     render() {
-
         let menuNavigation = this.state.cartPage.map((page,i)=>{
-            return <li data-id={i} key={i} onClick={this.goToPAge}>{page.name}</li>
+            return <li data-type={page.type} key={i} onClick={this.goToPage}>{page.name}</li>
+        })
+        let menuPositions = this.state.positions.map((position,i)=>{
+            if(position.type == this.state.currentPage){
+                return <MenuCartPosition key={i} position={position}/>
+            }
         })
         return (<section className={scss.menu__cart}>
                 <h2>Menu cart</h2>
@@ -38,8 +41,9 @@ class MenuCart extends React.Component {
                 <ul className={scss.menu__cart__navigation}>
                 {menuNavigation}
                 </ul>
-
-                {this.state.cartPage[this.state.currentPage].component}
+                <ul className={scss.menu__page__wrapper}>
+                {menuPositions}
+                </ul>
 
               </section>
         )
