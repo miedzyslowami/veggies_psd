@@ -1,0 +1,18 @@
+.menu__cart{
+*{
+  display: block;
+  margin:0 auto;
+  text-align: center;
+}
+  .menu__cart__navigation{
+      list-style: none;
+      width: 50%;
+      display: flex;
+      justify-content: space-between;
+      margin: 0 auto;
+      padding:20px 0;
+  }
+  .menu__page_wrapper{
+    margin:40px auto;
+  }
+}

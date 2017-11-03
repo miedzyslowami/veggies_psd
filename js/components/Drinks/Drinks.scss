@@ -1,0 +1,10 @@
+.cart__menu__wrapper{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 40px auto;
+  li{
+    width:50%;
+    margin:0;
+  }
+}

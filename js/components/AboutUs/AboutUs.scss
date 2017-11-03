@@ -1,0 +1,28 @@
+#about__us{
+  background-image: url('../../../assets/beans.png');
+  background-repeat: no-repeat;
+  background-size: 55%;
+  background-position-x: 95%;
+  background-color: #edeeee;
+  .about__us__box{
+    min-width: 320px;
+    width:36%;
+    display: block;
+    margin: 50px;
+    text-align: center;
+    box-sizing: border-box;
+    &:after{
+      content:'';
+      clear:both;
+      display:block;
+    }
+    p{
+      font-size: 1.5rem;
+      line-height: 2.5rem;
+    }
+    img{
+          float: right;
+          padding: 50px 0;
+    }
+  }
+}

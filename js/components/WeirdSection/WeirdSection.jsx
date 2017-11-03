@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import scss from './WeirdSection.scss';
+import SVGCoffee from '../SVGCoffee/SVGCoffee.jsx';
+import SVGVege from '../SVGVege/SVGVege.jsx';
+import SVGSweet from '../SVGSweet/SVGSweet.jsx';
 
 class WeirdSection extends React.Component {
   constructor(props){
@@ -14,6 +17,7 @@ class WeirdSection extends React.Component {
     render() {
       let weirdItems = this.state.weirdItems.map((item,i)=>{
         return (<div key={i}>
+                  {i == 0 ? <SVGVege/> : (i == 1 ? <SVGSweet/> : <SVGCoffee/>)}
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
                 </div>)

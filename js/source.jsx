@@ -13,8 +13,8 @@ class App extends React.Component {
             <div id={scss.app}>
             <Header/>
             <WeirdSection/>
-            <AboutUs/>
             <Specials/>
+            <AboutUs/>
             <MenuCart/>
             <Contact/>
           </div>
