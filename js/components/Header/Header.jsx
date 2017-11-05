@@ -27,7 +27,8 @@ class Header extends React.Component {
         })
         return (<header id={scss.header} className={scss.slider__1}>
                     <h1>Veggies</h1>
-                    <nav>
+                    <nav className={scss.classic__menu}>
+                    <div className={scss.hamburger}>Menu</div>
                     <ul>
                     {menuItems}
                     </ul>

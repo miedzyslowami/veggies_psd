@@ -37,7 +37,9 @@ class MenuCart extends React.Component {
         })
         return (<section className={scss.menu__cart}>
                 <h2>Menu cart</h2>
-                <Divider/>
+                <div className={scss.divider__wrap}>
+                    <Divider/>
+                </div>
                 <ul className={scss.menu__cart__navigation}>
                 {menuNavigation}
                 </ul>

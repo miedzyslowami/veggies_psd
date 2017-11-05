@@ -76,10 +76,56 @@ if (process.env.NODE_ENV === 'production') {
   module.exports = __webpack_require__(22);
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+function checkDCE() {
+  /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */
+  if (
+    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === 'undefined' ||
+    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE !== 'function'
+  ) {
+    return;
+  }
+  if (process.env.NODE_ENV !== 'production') {
+    // This branch is unreachable because this function is only called
+    // in production, but the condition is true only in development.
+    // Therefore if the branch is still here, dead code elimination wasn't
+    // properly applied.
+    // Don't change the message. React DevTools relies on it. Also make sure
+    // this message doesn't occur elsewhere in this function, or it will cause
+    // a false positive.
+    throw new Error('^_^');
+  }
+  try {
+    // Verify that the code above has been dead code eliminated (DCE'd).
+    __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(checkDCE);
+  } catch (err) {
+    // DevTools shouldn't crash React, no matter what.
+    // We should still report in case we break this code.
+    console.error(err);
+  }
+}
+
+if (process.env.NODE_ENV === 'production') {
+  // DCE check should happen before ReactDOM bundle executes so that
+  // DevTools can report bad minification during injection.
+  checkDCE();
+  module.exports = __webpack_require__(23);
+} else {
+  module.exports = __webpack_require__(26);
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -269,155 +315,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-function checkDCE() {
-  /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */
-  if (
-    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === 'undefined' ||
-    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE !== 'function'
-  ) {
-    return;
-  }
-  if (process.env.NODE_ENV !== 'production') {
-    // This branch is unreachable because this function is only called
-    // in production, but the condition is true only in development.
-    // Therefore if the branch is still here, dead code elimination wasn't
-    // properly applied.
-    // Don't change the message. React DevTools relies on it. Also make sure
-    // this message doesn't occur elsewhere in this function, or it will cause
-    // a false positive.
-    throw new Error('^_^');
-  }
-  try {
-    // Verify that the code above has been dead code eliminated (DCE'd).
-    __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(checkDCE);
-  } catch (err) {
-    // DevTools shouldn't crash React, no matter what.
-    // We should still report in case we break this code.
-    console.error(err);
-  }
-}
-
-if (process.env.NODE_ENV === 'production') {
-  // DCE check should happen before ReactDOM bundle executes so that
-  // DevTools can report bad minification during injection.
-  checkDCE();
-  module.exports = __webpack_require__(23);
-} else {
-  module.exports = __webpack_require__(26);
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
 /* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * 
- */
-
-function makeEmptyFunction(arg) {
-  return function () {
-    return arg;
-  };
-}
-
-/**
- * This function accepts and discards inputs; it has no side effects. This is
- * primarily useful idiomatically for overridable function endpoints which
- * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
- */
-var emptyFunction = function emptyFunction() {};
-
-emptyFunction.thatReturns = makeEmptyFunction;
-emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
-emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
-emptyFunction.thatReturnsNull = makeEmptyFunction(null);
-emptyFunction.thatReturnsThis = function () {
-  return this;
-};
-emptyFunction.thatReturnsArgument = function (arg) {
-  return arg;
-};
-
-module.exports = emptyFunction;
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-
-
-/**
- * Use invariant() to assert state which your program assumes to be true.
- *
- * Provide sprintf-style format (only %s is supported) and arguments
- * to provide information about what broke and what you were
- * expecting.
- *
- * The invariant message will be stripped in production, but the invariant
- * will remain to ensure logic does not differ in production.
- */
-
-var validateFormat = function validateFormat(format) {};
-
-if (process.env.NODE_ENV !== 'production') {
-  validateFormat = function validateFormat(format) {
-    if (format === undefined) {
-      throw new Error('invariant requires an error message argument');
-    }
-  };
-}
-
-function invariant(condition, format, a, b, c, d, e, f) {
-  validateFormat(format);
-
-  if (!condition) {
-    var error;
-    if (format === undefined) {
-      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
-    } else {
-      var args = [a, b, c, d, e, f];
-      var argIndex = 0;
-      error = new Error(format.replace(/%s/g, function () {
-        return args[argIndex++];
-      }));
-      error.name = 'Invariant Violation';
-    }
-
-    error.framesToPop = 1; // we don't care about invariant's own frame
-    throw error;
-  }
-}
-
-module.exports = invariant;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-/* 5 */
 /***/ (function(module, exports) {
 
 /*
@@ -499,7 +397,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 6 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -871,6 +769,108 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ */
+
+function makeEmptyFunction(arg) {
+  return function () {
+    return arg;
+  };
+}
+
+/**
+ * This function accepts and discards inputs; it has no side effects. This is
+ * primarily useful idiomatically for overridable function endpoints which
+ * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
+ */
+var emptyFunction = function emptyFunction() {};
+
+emptyFunction.thatReturns = makeEmptyFunction;
+emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
+emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
+emptyFunction.thatReturnsNull = makeEmptyFunction(null);
+emptyFunction.thatReturnsThis = function () {
+  return this;
+};
+emptyFunction.thatReturnsArgument = function (arg) {
+  return arg;
+};
+
+module.exports = emptyFunction;
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+
+/**
+ * Use invariant() to assert state which your program assumes to be true.
+ *
+ * Provide sprintf-style format (only %s is supported) and arguments
+ * to provide information about what broke and what you were
+ * expecting.
+ *
+ * The invariant message will be stripped in production, but the invariant
+ * will remain to ensure logic does not differ in production.
+ */
+
+var validateFormat = function validateFormat(format) {};
+
+if (process.env.NODE_ENV !== 'production') {
+  validateFormat = function validateFormat(format) {
+    if (format === undefined) {
+      throw new Error('invariant requires an error message argument');
+    }
+  };
+}
+
+function invariant(condition, format, a, b, c, d, e, f) {
+  validateFormat(format);
+
+  if (!condition) {
+    var error;
+    if (format === undefined) {
+      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+    } else {
+      var args = [a, b, c, d, e, f];
+      var argIndex = 0;
+      error = new Error(format.replace(/%s/g, function () {
+        return args[argIndex++];
+      }));
+      error.name = 'Invariant Violation';
+    }
+
+    error.framesToPop = 1; // we don't care about invariant's own frame
+    throw error;
+  }
+}
+
+module.exports = invariant;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -972,6 +972,69 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(1);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _Divider = __webpack_require__(42);
+
+var _Divider2 = _interopRequireDefault(_Divider);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Divider = function (_React$Component) {
+    _inherits(Divider, _React$Component);
+
+    function Divider() {
+        _classCallCheck(this, Divider);
+
+        return _possibleConstructorReturn(this, (Divider.__proto__ || Object.getPrototypeOf(Divider)).apply(this, arguments));
+    }
+
+    _createClass(Divider, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'svg',
+                { id: _Divider2.default.divider, xmlns: 'http://www.w3.org/2000/svg', x: '0px', y: '0px',
+                    viewBox: '0 0 1930 255.5' },
+                _react2.default.createElement('polyline', { className: _Divider2.default.divider, points: '1224,171.8 1181.3,171.8 1139.2,129.6 1065,203.9 970.5,110.4 876,203.6 801.8,129.4 759.7,171.5 717,171.5 ' }),
+                _react2.default.createElement('polyline', { className: _Divider2.default.divider, points: '5,131.5 757.3,131.5 801.8,176.1 885.9,91.9 868.3,74.2 831.5,111 870.4,149.9 970.2,50.2 1070,149.9 1108.8,111 1072.1,74.2 1054.4,91.9 1138.5,176.1 1183.1,131.5 1925,131.5 ' }),
+                _react2.default.createElement('rect', { className: _Divider2.default.divider, x: '921.9', y: '26.7', transform: 'matrix(0.7071 -0.7071 0.7071 0.7071 231.426 707.2043)', width: '95', height: '95' }),
+                _react2.default.createElement('rect', { className: _Divider2.default.divider, x: '921.9', y: '99.7', transform: 'matrix(0.7071 -0.7071 0.7071 0.7071 179.8072 728.5855)', width: '95', height: '95' }),
+                _react2.default.createElement('rect', { className: _Divider2.default.divider, x: '940.3', y: '178.1', transform: 'matrix(0.7071 -0.7071 0.7071 0.7071 137.3893 746.1556)', width: '58.2', height: '58.2' })
+            );
+        }
+    }]);
+
+    return Divider;
+}(_react2.default.Component);
+
+exports.default = Divider;
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -989,10 +1052,10 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 module.exports = emptyObject;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1006,7 +1069,7 @@ module.exports = emptyObject;
 
 
 
-var emptyFunction = __webpack_require__(3);
+var emptyFunction = __webpack_require__(5);
 
 /**
  * Similar to invariant but only logs a warning if the condition is not met.
@@ -1058,10 +1121,10 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 module.exports = warning;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1075,9 +1138,9 @@ module.exports = warning;
 
 
 if (process.env.NODE_ENV !== 'production') {
-  var invariant = __webpack_require__(4);
-  var warning = __webpack_require__(9);
-  var ReactPropTypesSecret = __webpack_require__(11);
+  var invariant = __webpack_require__(6);
+  var warning = __webpack_require__(10);
+  var ReactPropTypesSecret = __webpack_require__(12);
   var loggedTypeFailures = {};
 }
 
@@ -1125,10 +1188,10 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
 
 module.exports = checkPropTypes;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1147,7 +1210,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1186,69 +1249,6 @@ var ExecutionEnvironment = {
 module.exports = ExecutionEnvironment;
 
 /***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(2);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _Divider = __webpack_require__(42);
-
-var _Divider2 = _interopRequireDefault(_Divider);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Divider = function (_React$Component) {
-    _inherits(Divider, _React$Component);
-
-    function Divider() {
-        _classCallCheck(this, Divider);
-
-        return _possibleConstructorReturn(this, (Divider.__proto__ || Object.getPrototypeOf(Divider)).apply(this, arguments));
-    }
-
-    _createClass(Divider, [{
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'svg',
-                { id: _Divider2.default.divider, xmlns: 'http://www.w3.org/2000/svg', x: '0px', y: '0px',
-                    viewBox: '0 0 1930 255.5' },
-                _react2.default.createElement('polyline', { className: _Divider2.default.divider, points: '1224,171.8 1181.3,171.8 1139.2,129.6 1065,203.9 970.5,110.4 876,203.6 801.8,129.4 759.7,171.5 717,171.5 ' }),
-                _react2.default.createElement('polyline', { className: _Divider2.default.divider, points: '5,131.5 757.3,131.5 801.8,176.1 885.9,91.9 868.3,74.2 831.5,111 870.4,149.9 970.2,50.2 1070,149.9 1108.8,111 1072.1,74.2 1054.4,91.9 1138.5,176.1 1183.1,131.5 1925,131.5 ' }),
-                _react2.default.createElement('rect', { className: _Divider2.default.divider, x: '921.9', y: '26.7', transform: 'matrix(0.7071 -0.7071 0.7071 0.7071 231.426 707.2043)', width: '95', height: '95' }),
-                _react2.default.createElement('rect', { className: _Divider2.default.divider, x: '921.9', y: '99.7', transform: 'matrix(0.7071 -0.7071 0.7071 0.7071 179.8072 728.5855)', width: '95', height: '95' }),
-                _react2.default.createElement('rect', { className: _Divider2.default.divider, x: '940.3', y: '178.1', transform: 'matrix(0.7071 -0.7071 0.7071 0.7071 137.3893 746.1556)', width: '58.2', height: '58.2' })
-            );
-        }
-    }]);
-
-    return Divider;
-}(_react2.default.Component);
-
-exports.default = Divider;
-
-/***/ }),
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1264,7 +1264,7 @@ exports.default = Divider;
  * @typechecks
  */
 
-var emptyFunction = __webpack_require__(3);
+var emptyFunction = __webpack_require__(5);
 
 /**
  * Upstream version of event listener. Does not take into account specific
@@ -1327,7 +1327,7 @@ var EventListener = {
 };
 
 module.exports = EventListener;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
 /* 15 */
@@ -1535,7 +1535,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(2);
+var _reactDom = __webpack_require__(1);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -1547,27 +1547,27 @@ var _Contact = __webpack_require__(44);
 
 var _Contact2 = _interopRequireDefault(_Contact);
 
-var _AboutUs = __webpack_require__(47);
+var _AboutUs = __webpack_require__(48);
 
 var _AboutUs2 = _interopRequireDefault(_AboutUs);
 
-var _MenuCart = __webpack_require__(51);
+var _MenuCart = __webpack_require__(52);
 
 var _MenuCart2 = _interopRequireDefault(_MenuCart);
 
-var _Specials = __webpack_require__(52);
+var _Specials = __webpack_require__(59);
 
 var _Specials2 = _interopRequireDefault(_Specials);
 
-var _WeirdSection = __webpack_require__(55);
+var _WeirdSection = __webpack_require__(62);
 
 var _WeirdSection2 = _interopRequireDefault(_WeirdSection);
 
-var _Footer = __webpack_require__(72);
+var _Footer = __webpack_require__(69);
 
 var _Footer2 = _interopRequireDefault(_Footer);
 
-var _index = __webpack_require__(62);
+var _index = __webpack_require__(72);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -1626,7 +1626,7 @@ document.addEventListener('DOMContentLoaded', function () {
  This source code is licensed under the MIT license found in the
  LICENSE file in the root directory of this source tree.
 */
-var f=__webpack_require__(7),p=__webpack_require__(8);__webpack_require__(4);var r=__webpack_require__(3);
+var f=__webpack_require__(7),p=__webpack_require__(9);__webpack_require__(6);var r=__webpack_require__(5);
 function t(a){for(var b=arguments.length-1,d="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,e=0;e<b;e++)d+="\x26args[]\x3d"+encodeURIComponent(arguments[e+1]);b=Error(d+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}
 var u={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}};function v(a,b,d){this.props=a;this.context=b;this.refs=p;this.updater=d||u}v.prototype.isReactComponent={};v.prototype.setState=function(a,b){"object"!==typeof a&&"function"!==typeof a&&null!=a?t("85"):void 0;this.updater.enqueueSetState(this,a,b,"setState")};v.prototype.forceUpdate=function(a){this.updater.enqueueForceUpdate(this,a,"forceUpdate")};
 function w(a,b,d){this.props=a;this.context=b;this.refs=p;this.updater=d||u}function x(){}x.prototype=v.prototype;var y=w.prototype=new x;y.constructor=w;f(y,v.prototype);y.isPureReactComponent=!0;function z(a,b,d){this.props=a;this.context=b;this.refs=p;this.updater=d||u}var A=z.prototype=new x;A.constructor=z;f(A,v.prototype);A.unstable_isAsyncReactComponent=!0;A.render=function(){return this.props.children};
@@ -1664,11 +1664,11 @@ if (process.env.NODE_ENV !== "production") {
 'use strict';
 
 var objectAssign$1 = __webpack_require__(7);
-var require$$0 = __webpack_require__(9);
-var emptyObject = __webpack_require__(8);
-var invariant = __webpack_require__(4);
-var emptyFunction = __webpack_require__(3);
-var checkPropTypes = __webpack_require__(10);
+var require$$0 = __webpack_require__(10);
+var emptyObject = __webpack_require__(9);
+var invariant = __webpack_require__(6);
+var emptyFunction = __webpack_require__(5);
+var checkPropTypes = __webpack_require__(11);
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -3346,7 +3346,7 @@ module.exports = ReactEntry;
 })();
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
 /* 23 */
@@ -3363,7 +3363,7 @@ module.exports = ReactEntry;
  LICENSE file in the root directory of this source tree.
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(0);__webpack_require__(4);var l=__webpack_require__(12),n=__webpack_require__(7),ba=__webpack_require__(14),ca=__webpack_require__(3),da=__webpack_require__(8),ea=__webpack_require__(15),fa=__webpack_require__(16),ha=__webpack_require__(17),ia=__webpack_require__(18);
+var aa=__webpack_require__(0);__webpack_require__(6);var l=__webpack_require__(13),n=__webpack_require__(7),ba=__webpack_require__(14),ca=__webpack_require__(5),da=__webpack_require__(9),ea=__webpack_require__(15),fa=__webpack_require__(16),ha=__webpack_require__(17),ia=__webpack_require__(18);
 function w(a){for(var b=arguments.length-1,c="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,d=0;d<b;d++)c+="\x26args[]\x3d"+encodeURIComponent(arguments[d+1]);b=Error(c+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}aa?void 0:w("227");
 function ja(a){switch(a){case "svg":return"http://www.w3.org/2000/svg";case "math":return"http://www.w3.org/1998/Math/MathML";default:return"http://www.w3.org/1999/xhtml"}}
 var ka={Namespaces:{html:"http://www.w3.org/1999/xhtml",mathml:"http://www.w3.org/1998/Math/MathML",svg:"http://www.w3.org/2000/svg"},getIntrinsicNamespace:ja,getChildNamespace:function(a,b){return null==a||"http://www.w3.org/1999/xhtml"===a?ja(b):"http://www.w3.org/2000/svg"===a&&"foreignObject"===b?"http://www.w3.org/1999/xhtml":a}},la=null,oa={};
@@ -3689,18 +3689,18 @@ if (process.env.NODE_ENV !== "production") {
 'use strict';
 
 var react = __webpack_require__(0);
-var invariant = __webpack_require__(4);
-var ExecutionEnvironment = __webpack_require__(12);
+var invariant = __webpack_require__(6);
+var ExecutionEnvironment = __webpack_require__(13);
 var _assign = __webpack_require__(7);
 var EventListener = __webpack_require__(14);
-var require$$0 = __webpack_require__(9);
+var require$$0 = __webpack_require__(10);
 var hyphenateStyleName = __webpack_require__(27);
-var emptyFunction = __webpack_require__(3);
+var emptyFunction = __webpack_require__(5);
 var camelizeStyleName = __webpack_require__(29);
 var performanceNow = __webpack_require__(31);
 var propTypes = __webpack_require__(33);
-var emptyObject = __webpack_require__(8);
-var checkPropTypes = __webpack_require__(10);
+var emptyObject = __webpack_require__(9);
+var checkPropTypes = __webpack_require__(11);
 var shallowEqual = __webpack_require__(15);
 var containsNode = __webpack_require__(16);
 var focusNode = __webpack_require__(17);
@@ -20894,7 +20894,7 @@ module.exports = ReactDOMFiberEntry;
 })();
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
 /* 27 */
@@ -21105,7 +21105,7 @@ module.exports = performanceNow;
 
 
 
-var ExecutionEnvironment = __webpack_require__(12);
+var ExecutionEnvironment = __webpack_require__(13);
 
 var performance;
 
@@ -21148,7 +21148,7 @@ if (process.env.NODE_ENV !== 'production') {
   module.exports = __webpack_require__(35)();
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
 /* 34 */
@@ -21164,13 +21164,13 @@ if (process.env.NODE_ENV !== 'production') {
 
 
 
-var emptyFunction = __webpack_require__(3);
-var invariant = __webpack_require__(4);
-var warning = __webpack_require__(9);
+var emptyFunction = __webpack_require__(5);
+var invariant = __webpack_require__(6);
+var warning = __webpack_require__(10);
 var assign = __webpack_require__(7);
 
-var ReactPropTypesSecret = __webpack_require__(11);
-var checkPropTypes = __webpack_require__(10);
+var ReactPropTypesSecret = __webpack_require__(12);
+var checkPropTypes = __webpack_require__(11);
 
 module.exports = function(isValidElement, throwOnDirectAccess) {
   /* global Symbol */
@@ -21698,7 +21698,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
   return ReactPropTypes;
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
 /* 35 */
@@ -21714,9 +21714,9 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 
 
 
-var emptyFunction = __webpack_require__(3);
-var invariant = __webpack_require__(4);
-var ReactPropTypesSecret = __webpack_require__(11);
+var emptyFunction = __webpack_require__(5);
+var invariant = __webpack_require__(6);
+var ReactPropTypesSecret = __webpack_require__(12);
 
 module.exports = function() {
   function shim(props, propName, componentName, location, propFullName, secret) {
@@ -21782,7 +21782,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(2);
+var _reactDom = __webpack_require__(1);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -21790,7 +21790,7 @@ var _Header = __webpack_require__(37);
 
 var _Header2 = _interopRequireDefault(_Header);
 
-var _Divider = __webpack_require__(13);
+var _Divider = __webpack_require__(8);
 
 var _Divider2 = _interopRequireDefault(_Divider);
 
@@ -21845,7 +21845,12 @@ var Header = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'nav',
-                    null,
+                    { className: _Header2.default.classic__menu },
+                    _react2.default.createElement(
+                        'div',
+                        { className: _Header2.default.hamburger },
+                        'Menu'
+                    ),
                     _react2.default.createElement(
                         'ul',
                         null,
@@ -21886,7 +21891,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(6)(content, options);
+var update = __webpack_require__(4)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -21906,18 +21911,22 @@ if(false) {
 /* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(5)(undefined);
+exports = module.exports = __webpack_require__(3)(undefined);
 // imports
 
 
 // module
-exports.push([module.i, ".slider__1---YL-ui {\n  background-image: url(" + __webpack_require__(39) + "); }\n\n.slider__2---11S76 {\n  background-image: url(" + __webpack_require__(40) + "); }\n\n#header---3cc6y {\n  background-repeat: no-repeat;\n  background-size: cover;\n  height: 650px; }\n  #header---3cc6y h1 {\n    text-indent: -100%;\n    line-height: 0;\n    font-size: 0; }\n  #header---3cc6y nav {\n    display: block;\n    height: 150px; }\n    #header---3cc6y nav ul {\n      padding: 20px; }\n      #header---3cc6y nav ul li {\n        display: inline-block;\n        float: right;\n        padding: 20px 25px; }\n      #header---3cc6y nav ul:after {\n        clear: both;\n        content: \"\", attr();\n        display: block; }\n  #header---3cc6y .slider__text---2DVEg {\n    float: right;\n    padding: 50px;\n    width: 38%;\n    font-size: 2.3rem;\n    text-align: center; }\n", ""]);
+exports.push([module.i, ".slider__1---YL-ui {\n  background-image: url(" + __webpack_require__(39) + "); }\n\n.slider__2---11S76 {\n  background-image: url(" + __webpack_require__(40) + "); }\n\n#header---3cc6y {\n  background-repeat: no-repeat;\n  background-size: cover;\n  height: 100vh; }\n  @media only screen and (min-width: 1024px) {\n    #header---3cc6y {\n      background-size: contain;\n      height: 650px; } }\n  #header---3cc6y h1 {\n    text-indent: -100%;\n    line-height: 0;\n    font-size: 0; }\n  #header---3cc6y .hamburger---2gHcG {\n    width: 100%;\n    padding: 20px;\n    box-sizing: border-box;\n    text-align: center;\n    text-transform: uppercase;\n    letter-spacing: 3px;\n    background-color: white;\n    border-radius: 4px;\n    font-weight: 100; }\n    @media only screen and (min-width: 1024px) {\n      #header---3cc6y .hamburger---2gHcG {\n        display: none; } }\n  #header---3cc6y .classic__menu---Ii0VQ .menu__item---3_2yT {\n    display: none;\n    height: 100vh; }\n    #header---3cc6y .classic__menu---Ii0VQ .menu__item__displayed---3Oeff {\n      background: black;\n      display: block;\n      color: white;\n      margin: 50px auto;\n      width: 50%;\n      list-style: none;\n      text-transform: uppercase;\n      letter-spacing: 2px;\n      text-align: center;\n      padding: 10px; }\n      #header---3cc6y .classic__menu---Ii0VQ .menu__item__displayed---3Oeff:first-of-type {\n        margin: 0 auto 50px;\n        padding-top: 50px; }\n  @media only screen and (min-width: 1024px) {\n    #header---3cc6y .classic__menu---Ii0VQ {\n      display: block;\n      height: 150px; }\n      #header---3cc6y .classic__menu---Ii0VQ ul {\n        padding: 20px; }\n        #header---3cc6y .classic__menu---Ii0VQ ul .menu__item---3_2yT {\n          display: inline-block;\n          float: right;\n          padding: 20px 25px; }\n        #header---3cc6y .classic__menu---Ii0VQ ul:after {\n          clear: both;\n          content: '';\n          display: block; } }\n  #header---3cc6y .slider__text---2DVEg {\n    width: 100vw;\n    box-sizing: border-box;\n    padding: 50px;\n    font-size: 2.3rem;\n    text-align: center;\n    text-shadow: -1px -1px 10px white,1px 1px 10px white,-1px 1px 10px white,1px -1px 10px white; }\n    @media only screen and (min-width: 1024px) {\n      #header---3cc6y .slider__text---2DVEg {\n        float: right;\n        width: 38%; } }\n", ""]);
 
 // exports
 exports.locals = {
 	"slider__1": "slider__1---YL-ui",
 	"slider__2": "slider__2---11S76",
 	"header": "header---3cc6y",
+	"hamburger": "hamburger---2gHcG",
+	"classic__menu": "classic__menu---Ii0VQ",
+	"menu__item": "menu__item---3_2yT",
+	"menu__item__displayed": "menu__item__displayed---3Oeff",
 	"slider__text": "slider__text---2DVEg"
 };
 
@@ -22043,7 +22052,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(6)(content, options);
+var update = __webpack_require__(4)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -22063,12 +22072,12 @@ if(false) {
 /* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(5)(undefined);
+exports = module.exports = __webpack_require__(3)(undefined);
 // imports
 
 
 // module
-exports.push([module.i, "#divider---1fm6l {\n  width: 250px;\n  margin-top: 30px; }\n  #divider---1fm6l .divider---1fm6l {\n    fill: none;\n    stroke: #000000;\n    stroke-width: 10;\n    stroke-linecap: square;\n    stroke-miterlimit: 10; }\n", ""]);
+exports.push([module.i, "#divider---1fm6l {\n  margin: 30px auto; }\n  #divider---1fm6l .divider---1fm6l {\n    fill: none;\n    stroke: #000000;\n    stroke-width: 10;\n    stroke-linecap: square;\n    stroke-miterlimit: 10; }\n", ""]);
 
 // exports
 exports.locals = {
@@ -22092,7 +22101,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(2);
+var _reactDom = __webpack_require__(1);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -22100,7 +22109,7 @@ var _Contact = __webpack_require__(45);
 
 var _Contact2 = _interopRequireDefault(_Contact);
 
-var _Divider = __webpack_require__(13);
+var _Divider = __webpack_require__(8);
 
 var _Divider2 = _interopRequireDefault(_Divider);
 
@@ -22128,14 +22137,18 @@ var Contact = function (_React$Component) {
                 'section',
                 { id: _Contact2.default.contact },
                 _react2.default.createElement(
+                    'h2',
+                    null,
+                    'Contact'
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: _Contact2.default.divider__wrap },
+                    _react2.default.createElement(_Divider2.default, null)
+                ),
+                _react2.default.createElement(
                     'div',
                     { className: _Contact2.default.contact__box },
-                    _react2.default.createElement(
-                        'h2',
-                        null,
-                        'Contact'
-                    ),
-                    _react2.default.createElement(_Divider2.default, null),
                     _react2.default.createElement(
                         'div',
                         { className: _Contact2.default.contact__midsection },
@@ -22212,7 +22225,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(6)(content, options);
+var update = __webpack_require__(4)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -22232,16 +22245,17 @@ if(false) {
 /* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(5)(undefined);
+exports = module.exports = __webpack_require__(3)(undefined);
 // imports
 
 
 // module
-exports.push([module.i, "#contact---eElu_ {\n  background-image: url(" + __webpack_require__(71) + ");\n  background-repeat: no-repeat;\n  background-position: right; }\n  #contact---eElu_ .contact__box---hG96o {\n    min-width: 320px;\n    width: 42%;\n    display: block;\n    margin: 50px;\n    text-align: center;\n    box-sizing: border-box;\n    float: right; }\n    #contact---eElu_ .contact__box---hG96o .contact__midsection---ekNx- {\n      margin: 60px 0; }\n      #contact---eElu_ .contact__box---hG96o .contact__midsection---ekNx- div {\n        width: 50%;\n        margin: auto;\n        box-sizing: border-box;\n        display: inline-block;\n        text-align: left; }\n        #contact---eElu_ .contact__box---hG96o .contact__midsection---ekNx- div p, #contact---eElu_ .contact__box---hG96o .contact__midsection---ekNx- div h4 {\n          width: 90%;\n          color: black;\n          line-height: 2rem; }\n        #contact---eElu_ .contact__box---hG96o .contact__midsection---ekNx- div h4 {\n          padding: 20px 0;\n          font-size: 1.2rem;\n          text-transform: capitalize; }\n        #contact---eElu_ .contact__box---hG96o .contact__midsection---ekNx- div:last-of-type {\n          text-align: right; }\n    #contact---eElu_ .contact__box---hG96o form {\n      margin: 60px 0; }\n      #contact---eElu_ .contact__box---hG96o form h3 {\n        color: black;\n        line-height: 2rem;\n        text-align: left;\n        text-transform: uppercase;\n        letter-spacing: 1px; }\n      #contact---eElu_ .contact__box---hG96o form input, #contact---eElu_ .contact__box---hG96o form textarea {\n        background-color: transparent;\n        color: black;\n        border: none;\n        padding: 14px 0;\n        border-bottom: 1px solid black; }\n        #contact---eElu_ .contact__box---hG96o form input[placeholder], #contact---eElu_ .contact__box---hG96o form textarea[placeholder] {\n          color: black;\n          font-style: italic; }\n        #contact---eElu_ .contact__box---hG96o form input:focus, #contact---eElu_ .contact__box---hG96o form textarea:focus {\n          outline: none; }\n      #contact---eElu_ .contact__box---hG96o form input {\n        display: inline-block;\n        width: 40%;\n        box-sizing: border-box; }\n        #contact---eElu_ .contact__box---hG96o form input:first-of-type {\n          float: left; }\n        #contact---eElu_ .contact__box---hG96o form input:nth-of-type(2) {\n          float: right; }\n        #contact---eElu_ .contact__box---hG96o form input[type='submit'] {\n          border: 1px solid black;\n          letter-spacing: 1px;\n          width: 95px;\n          text-transform: capitalize;\n          padding: 10px;\n          font-size: 1rem; }\n      #contact---eElu_ .contact__box---hG96o form textarea {\n        width: 100%;\n        padding: 0;\n        margin: 20px 0; }\n      #contact---eElu_ .contact__box---hG96o form:after {\n        clear: both;\n        content: '';\n        display: block; }\n  #contact---eElu_:after {\n    content: '';\n    clear: both;\n    display: block; }\n  #contact---eElu_ .footer---25qSP {\n    color: black;\n    width: 100%;\n    background-color: red;\n    bottom: 0;\n    text-align: center; }\n", ""]);
+exports.push([module.i, "#contact---eElu_ {\n  background-image: url(" + __webpack_require__(47) + ");\n  background-repeat: no-repeat;\n  background-position: right; }\n  #contact---eElu_ h2 {\n    text-align: center; }\n  #contact---eElu_ .divider__wrap---2cmY3 {\n    margin: -20px auto 0;\n    padding: 0 50px; }\n  #contact---eElu_ .contact__box---hG96o {\n    min-width: 320px;\n    width: 100%;\n    display: block;\n    text-align: center;\n    box-sizing: border-box;\n    margin: 0 auto; }\n    #contact---eElu_ .contact__box---hG96o .contact__midsection---ekNx- {\n      margin: 60px auto;\n      text-align: left;\n      padding: 0 20px; }\n      #contact---eElu_ .contact__box---hG96o .contact__midsection---ekNx- div {\n        display: block; }\n        #contact---eElu_ .contact__box---hG96o .contact__midsection---ekNx- div h4,\n        #contact---eElu_ .contact__box---hG96o .contact__midsection---ekNx- div p {\n          width: 90%;\n          color: black;\n          line-height: 2rem; }\n        #contact---eElu_ .contact__box---hG96o .contact__midsection---ekNx- div h4 {\n          padding: 20px 0;\n          font-size: 1.2rem;\n          text-transform: capitalize; }\n    #contact---eElu_ .contact__box---hG96o form {\n      margin: 60px 0; }\n      #contact---eElu_ .contact__box---hG96o form h3 {\n        color: black;\n        line-height: 2rem;\n        text-align: center;\n        text-transform: uppercase;\n        letter-spacing: 1px; }\n      #contact---eElu_ .contact__box---hG96o form input,\n      #contact---eElu_ .contact__box---hG96o form textarea {\n        background-color: transparent;\n        color: black;\n        border: none;\n        padding: 14px 0;\n        border-bottom: 1px solid black; }\n        #contact---eElu_ .contact__box---hG96o form input[placeholder],\n        #contact---eElu_ .contact__box---hG96o form textarea[placeholder] {\n          color: black;\n          font-style: italic; }\n        #contact---eElu_ .contact__box---hG96o form input:focus,\n        #contact---eElu_ .contact__box---hG96o form textarea:focus {\n          outline: none; }\n      #contact---eElu_ .contact__box---hG96o form input {\n        display: block;\n        width: 90%;\n        box-sizing: border-box;\n        margin: 0 auto; }\n        #contact---eElu_ .contact__box---hG96o form input[type='submit'] {\n          border: 1px solid black;\n          letter-spacing: 1px;\n          width: 95px;\n          text-transform: capitalize;\n          padding: 10px;\n          font-size: 1rem; }\n      #contact---eElu_ .contact__box---hG96o form textarea {\n        width: 90%;\n        padding: 0;\n        margin: 20px 0; }\n  @media only screen and (min-width: 1024px) {\n    #contact---eElu_ .contact__box---hG96o {\n      width: 42%;\n      margin: 50px;\n      float: right; }\n      #contact---eElu_ .contact__box---hG96o .contact__midsection---ekNx- {\n        margin: 60px 0; }\n        #contact---eElu_ .contact__box---hG96o .contact__midsection---ekNx- div {\n          width: 50%;\n          margin: auto;\n          display: inline-block;\n          text-align: left; }\n          #contact---eElu_ .contact__box---hG96o .contact__midsection---ekNx- div h4,\n          #contact---eElu_ .contact__box---hG96o .contact__midsection---ekNx- div p {\n            width: 90%;\n            color: black;\n            line-height: 2rem; }\n          #contact---eElu_ .contact__box---hG96o .contact__midsection---ekNx- div h4 {\n            padding: 20px 0;\n            font-size: 1.2rem;\n            text-transform: capitalize; }\n          #contact---eElu_ .contact__box---hG96o .contact__midsection---ekNx- div:last-of-type {\n            text-align: right; }\n      #contact---eElu_ .contact__box---hG96o form {\n        margin: 60px 0; }\n        #contact---eElu_ .contact__box---hG96o form h3 {\n          color: black;\n          line-height: 2rem;\n          text-align: left;\n          text-transform: uppercase;\n          letter-spacing: 1px; }\n        #contact---eElu_ .contact__box---hG96o form input,\n        #contact---eElu_ .contact__box---hG96o form textarea {\n          background-color: transparent;\n          color: black;\n          border: none;\n          padding: 14px 0;\n          border-bottom: 1px solid black; }\n          #contact---eElu_ .contact__box---hG96o form input[placeholder],\n          #contact---eElu_ .contact__box---hG96o form textarea[placeholder] {\n            color: black;\n            font-style: italic; }\n          #contact---eElu_ .contact__box---hG96o form input:focus,\n          #contact---eElu_ .contact__box---hG96o form textarea:focus {\n            outline: none; }\n        #contact---eElu_ .contact__box---hG96o form input {\n          display: inline-block;\n          width: 40%;\n          box-sizing: border-box; }\n          #contact---eElu_ .contact__box---hG96o form input:first-of-type {\n            float: left; }\n          #contact---eElu_ .contact__box---hG96o form input:nth-of-type(2) {\n            float: right; }\n          #contact---eElu_ .contact__box---hG96o form input[type='submit'] {\n            border: 1px solid black;\n            letter-spacing: 1px;\n            width: 95px;\n            text-transform: capitalize;\n            padding: 10px;\n            font-size: 1rem; }\n        #contact---eElu_ .contact__box---hG96o form textarea {\n          width: 100%;\n          padding: 0;\n          margin: 20px 0; }\n        #contact---eElu_ .contact__box---hG96o form:after {\n          clear: both;\n          content: '';\n          display: block; } }\n  #contact---eElu_:after {\n    content: '';\n    clear: both;\n    display: block; }\n  #contact---eElu_ .footer---25qSP {\n    color: black;\n    width: 100%;\n    background-color: red;\n    bottom: 0;\n    text-align: center; }\n", ""]);
 
 // exports
 exports.locals = {
 	"contact": "contact---eElu_",
+	"divider__wrap": "divider__wrap---2cmY3",
 	"contact__box": "contact__box---hG96o",
 	"contact__midsection": "contact__midsection---ekNx-",
 	"footer": "footer---25qSP"
@@ -22249,6 +22263,12 @@ exports.locals = {
 
 /***/ }),
 /* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "assets/contact-bg.png";
+
+/***/ }),
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22264,15 +22284,15 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(2);
+var _reactDom = __webpack_require__(1);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _AboutUs = __webpack_require__(48);
+var _AboutUs = __webpack_require__(49);
 
 var _AboutUs2 = _interopRequireDefault(_AboutUs);
 
-var _Divider = __webpack_require__(13);
+var _Divider = __webpack_require__(8);
 
 var _Divider2 = _interopRequireDefault(_Divider);
 
@@ -22300,14 +22320,18 @@ var AboutUs = function (_React$Component) {
                 'section',
                 { id: _AboutUs2.default.about__us },
                 _react2.default.createElement(
+                    'h2',
+                    null,
+                    'About us'
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: _AboutUs2.default.divider__wrap },
+                    _react2.default.createElement(_Divider2.default, null)
+                ),
+                _react2.default.createElement(
                     'div',
                     { className: _AboutUs2.default.about__us__box },
-                    _react2.default.createElement(
-                        'h2',
-                        null,
-                        'About us'
-                    ),
-                    _react2.default.createElement(_Divider2.default, null),
                     _react2.default.createElement(
                         'p',
                         null,
@@ -22325,13 +22349,13 @@ var AboutUs = function (_React$Component) {
 exports.default = AboutUs;
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(49);
+var content = __webpack_require__(50);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -22339,7 +22363,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(6)(content, options);
+var update = __webpack_require__(4)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -22356,30 +22380,31 @@ if(false) {
 }
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(5)(undefined);
+exports = module.exports = __webpack_require__(3)(undefined);
 // imports
 
 
 // module
-exports.push([module.i, "#about__us---27Pdw {\n  background-image: url(" + __webpack_require__(50) + ");\n  background-repeat: no-repeat;\n  background-size: 55%;\n  background-position-x: 95%;\n  background-color: #edeeee; }\n  #about__us---27Pdw .about__us__box---1b83F {\n    min-width: 320px;\n    width: 36%;\n    display: block;\n    margin: 50px;\n    text-align: center;\n    box-sizing: border-box; }\n    #about__us---27Pdw .about__us__box---1b83F:after {\n      content: '';\n      clear: both;\n      display: block; }\n    #about__us---27Pdw .about__us__box---1b83F p {\n      font-size: 1.5rem;\n      line-height: 2.5rem; }\n    #about__us---27Pdw .about__us__box---1b83F img {\n      float: right;\n      padding: 50px 0; }\n", ""]);
+exports.push([module.i, "#about__us---27Pdw {\n  background-image: url(" + __webpack_require__(51) + ");\n  background-repeat: no-repeat;\n  background-size: 55%;\n  background-position-x: 95%;\n  background-color: #edeeee; }\n  #about__us---27Pdw h2 {\n    text-align: center; }\n  #about__us---27Pdw .divider__wrap---2_Uqe {\n    margin: -20px auto 0;\n    padding: 0 50px; }\n  #about__us---27Pdw .about__us__box---1b83F {\n    min-width: 320px;\n    width: 100%;\n    display: block;\n    text-align: center;\n    box-sizing: border-box; }\n    #about__us---27Pdw .about__us__box---1b83F:after {\n      content: '';\n      clear: both;\n      display: block; }\n    #about__us---27Pdw .about__us__box---1b83F p {\n      font-size: 1.5rem;\n      line-height: 2.5rem; }\n    #about__us---27Pdw .about__us__box---1b83F img {\n      float: right;\n      padding: 50px 0; }\n  @media only screen and (min-width: 1024px) {\n    #about__us---27Pdw .about__us__box---1b83F {\n      min-width: 320px;\n      width: 36%;\n      display: block;\n      margin: 50px; }\n      #about__us---27Pdw .about__us__box---1b83F img {\n        float: right;\n        padding: 50px 0; } }\n", ""]);
 
 // exports
 exports.locals = {
 	"about__us": "about__us---27Pdw",
+	"divider__wrap": "divider__wrap---2_Uqe",
 	"about__us__box": "about__us__box---1b83F"
 };
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/beans.png";
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22395,23 +22420,23 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(2);
+var _reactDom = __webpack_require__(1);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _MenuCart = __webpack_require__(64);
+var _MenuCart = __webpack_require__(53);
 
 var _MenuCart2 = _interopRequireDefault(_MenuCart);
 
-var _Divider = __webpack_require__(13);
+var _Divider = __webpack_require__(8);
 
 var _Divider2 = _interopRequireDefault(_Divider);
 
-var _MenuCartPosition = __webpack_require__(68);
+var _MenuCartPosition = __webpack_require__(55);
 
 var _MenuCartPosition2 = _interopRequireDefault(_MenuCartPosition);
 
-var _data = __webpack_require__(66);
+var _data = __webpack_require__(58);
 
 var _data2 = _interopRequireDefault(_data);
 
@@ -22472,7 +22497,11 @@ var MenuCart = function (_React$Component) {
                     null,
                     'Menu cart'
                 ),
-                _react2.default.createElement(_Divider2.default, null),
+                _react2.default.createElement(
+                    'div',
+                    { className: _MenuCart2.default.divider__wrap },
+                    _react2.default.createElement(_Divider2.default, null)
+                ),
                 _react2.default.createElement(
                     'ul',
                     { className: _MenuCart2.default.menu__cart__navigation },
@@ -22493,7 +22522,57 @@ var MenuCart = function (_React$Component) {
 exports.default = MenuCart;
 
 /***/ }),
-/* 52 */
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(54);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(4)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js?modules&localIdentName=[local]---[hash:base64:5]!../../../node_modules/postcss-loader/lib/index.js!../../../node_modules/sass-loader/lib/loader.js?modules&localIdentName=[local]---[hash:base64:5]!./MenuCart.scss", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js?modules&localIdentName=[local]---[hash:base64:5]!../../../node_modules/postcss-loader/lib/index.js!../../../node_modules/sass-loader/lib/loader.js?modules&localIdentName=[local]---[hash:base64:5]!./MenuCart.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".menu__cart---3_Cf6 {\n  min-height: 750px; }\n  .menu__cart---3_Cf6 .divider__wrap---3ccQW {\n    margin: -20px auto 0;\n    padding: 0 50px; }\n  .menu__cart---3_Cf6 * {\n    display: block;\n    margin: 0 auto;\n    text-align: center; }\n  .menu__cart---3_Cf6 .menu__cart__navigation---19a1S {\n    list-style: none;\n    width: 100%;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    margin: 0 auto;\n    padding: 20px 0; }\n  .menu__cart---3_Cf6 .menu__page__wrapper---1gIiz {\n    margin: 40px auto;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    width: 100%;\n    min-width: 320px; }\n  @media only screen and (min-width: 1024px) {\n    .menu__cart---3_Cf6 .menu__cart__navigation---19a1S {\n      list-style: none;\n      width: 50%;\n      -webkit-box-orient: horizontal;\n      -webkit-box-direction: normal;\n          -ms-flex-direction: row;\n              flex-direction: row;\n      -webkit-box-pack: justify;\n          -ms-flex-pack: justify;\n              justify-content: space-between;\n      margin: 0 auto;\n      padding: 20px 0; }\n    .menu__cart---3_Cf6 .menu__page__wrapper---1gIiz {\n      margin: 40px auto;\n      -ms-flex-wrap: wrap;\n          flex-wrap: wrap;\n      width: 80%; } }\n", ""]);
+
+// exports
+exports.locals = {
+	"menu__cart": "menu__cart---3_Cf6",
+	"divider__wrap": "divider__wrap---3ccQW",
+	"menu__cart__navigation": "menu__cart__navigation---19a1S",
+	"menu__page__wrapper": "menu__page__wrapper---1gIiz"
+};
+
+/***/ }),
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22509,15 +22588,191 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(2);
+var _reactDom = __webpack_require__(1);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _Divider = __webpack_require__(13);
+var _MenuCartPosition = __webpack_require__(56);
+
+var _MenuCartPosition2 = _interopRequireDefault(_MenuCartPosition);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var MenuCartPosition = function (_React$Component) {
+    _inherits(MenuCartPosition, _React$Component);
+
+    function MenuCartPosition(props) {
+        _classCallCheck(this, MenuCartPosition);
+
+        return _possibleConstructorReturn(this, (MenuCartPosition.__proto__ || Object.getPrototypeOf(MenuCartPosition)).call(this, props));
+    }
+
+    _createClass(MenuCartPosition, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'li',
+                { className: _MenuCartPosition2.default.menu__cart__position },
+                _react2.default.createElement(
+                    'div',
+                    { className: _MenuCartPosition2.default.menu__cart__position__line },
+                    _react2.default.createElement(
+                        'div',
+                        { className: _MenuCartPosition2.default.title },
+                        this.props.position.title
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: _MenuCartPosition2.default.price },
+                        this.props.position.price
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: _MenuCartPosition2.default.ingridients },
+                    this.props.position.ingridients
+                )
+            );
+        }
+    }]);
+
+    return MenuCartPosition;
+}(_react2.default.Component);
+
+exports.default = MenuCartPosition;
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(57);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(4)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js?modules&localIdentName=[local]---[hash:base64:5]!../../../node_modules/postcss-loader/lib/index.js!../../../node_modules/sass-loader/lib/loader.js?modules&localIdentName=[local]---[hash:base64:5]!./MenuCartPosition.scss", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js?modules&localIdentName=[local]---[hash:base64:5]!../../../node_modules/postcss-loader/lib/index.js!../../../node_modules/sass-loader/lib/loader.js?modules&localIdentName=[local]---[hash:base64:5]!./MenuCartPosition.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".menu__cart__position---s7ljz {\n  width: 100%;\n  box-sizing: border-box;\n  text-align: left;\n  padding: 8px;\n  margin: 0; }\n  .menu__cart__position---s7ljz .menu__cart__position__line---3A5TD {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between; }\n    .menu__cart__position---s7ljz .menu__cart__position__line---3A5TD div {\n      padding: 1em 0 0 0;\n      background-color: white; }\n    .menu__cart__position---s7ljz .menu__cart__position__line---3A5TD .title---1Q8WS {\n      text-transform: uppercase;\n      letter-spacing: 1px; }\n    .menu__cart__position---s7ljz .menu__cart__position__line---3A5TD .price---3Iuws {\n      font-weight: 500;\n      color: #333030; }\n    .menu__cart__position---s7ljz .menu__cart__position__line---3A5TD + div, .menu__cart__position---s7ljz .menu__cart__position__line---3A5TD > div {\n      text-align: left;\n      margin: 0; }\n  .menu__cart__position---s7ljz .ingridients---8OQLy {\n    font-style: italic; }\n  @media only screen and (min-width: 1024px) {\n    .menu__cart__position---s7ljz {\n      width: 50%; }\n      .menu__cart__position---s7ljz .menu__cart__position__line---3A5TD {\n        background-image: radial-gradient(#333030 1px, white 0px);\n        background-size: 11px 11px;\n        background-repeat: repeat-x;\n        background-position: left bottom; } }\n", ""]);
+
+// exports
+exports.locals = {
+	"menu__cart__position": "menu__cart__position---s7ljz",
+	"menu__cart__position__line": "menu__cart__position__line---3A5TD",
+	"title": "title---1Q8WS",
+	"price": "price---3Iuws",
+	"ingridients": "ingridients---8OQLy"
+};
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports) {
+
+module.exports = [
+            {type:'mainDishes', title:'SMOKED RICOTTA TERRINE',price:'$12',ingridients:'ricotta, shallots, cheddar, capers'},
+            {type:'mainDishes', title:'SAMPHIRE FRITTERS WITH FENNEL CEVICHE',price:'$19',ingridients:'fresh samphire, plain flour, cornflower, eggs, fennel'},
+            {type:'mainDishes', title:'PAN FRIED COURGETTE FLOWERS	',price:'$20',ingridients:'courgette flowers, goats cheese, red onion, pine nuts'},
+            {type:'mainDishes', title:'SMOKED RICOTTA TERRINE',price:'$12',ingridients:'ricotta, shallots, cheddar, capers'},
+            {type:'mainDishes', title:'SAMPHIRE FRITTERS WITH FENNEL CEVICHE',price:'$19',ingridients:'fresh samphire, plain flour, cornflower, eggs, fennel'},
+            {type:'mainDishes', title:'PAN FRIED COURGETTE FLOWERS	',price:'$16',ingridients:'courgette flowers, goats cheese, red onion, pine nuts'},
+            {type:'mainDishes', title:'SMOKED RICOTTA TERRINE',price:'$12',ingridients:'ricotta, shallots, cheddar, capers'},
+            {type:'mainDishes', title:'SAMPHIRE FRITTERS WITH FENNEL CEVICHE',price:'$19',ingridients:'fresh samphire, plain flour, cornflower, eggs, fennel'},
+            {type:'mainDishes', title:'PAN FRIED COURGETTE FLOWERS	',price:'$18',ingridients:'courgette flowers, goats cheese, red onion, pine nuts'},
+            {type:'mainDishes', title:'SMOKED RICOTTA TERRINE',price:'$17',ingridients:'ricotta, shallots, cheddar, capers'},
+            {type:'starters', title:'SAMPHIRE FRITTERS WITH FENNEL CEVICHE',price:'$19',ingridients:'fresh samphire, plain flour, cornflower, eggs, fennel'},
+            {type:'starters', title:'PAN FRIED COURGETTE FLOWERS	',price:'$13',ingridients:'courgette flowers, goats cheese, red onion, pine nuts'},
+            {type:'starters', title:'SMOKED RICOTTA TERRINE',price:'$20',ingridients:'ricotta, shallots, cheddar, capers'},
+            {type:'starters', title:'SMOKED RICOTTA TERRINE',price:'$12',ingridients:'ricotta, shallots, cheddar, capers'},
+            {type:'starters', title:'SAMPHIRE FRITTERS WITH FENNEL CEVICHE',price:'$19',ingridients:'fresh samphire, plain flour, cornflower, eggs, fennel'},
+            {type:'starters', title:'PAN FRIED COURGETTE FLOWERS	',price:'$20',ingridients:'courgette flowers, goats cheese, red onion, pine nuts'},
+            {type:'starters', title:'SMOKED RICOTTA TERRINE',price:'$12',ingridients:'ricotta, shallots, cheddar, capers'},
+            {type:'starters', title:'SAMPHIRE FRITTERS WITH FENNEL CEVICHE',price:'$19',ingridients:'fresh samphire, plain flour, cornflower, eggs, fennel'},
+            {type:'starters', title:'PAN FRIED COURGETTE FLOWERS	',price:'$18',ingridients:'courgette flowers, goats cheese, red onion, pine nuts'},
+            {type:'desserts', title:'SMOKED RICOTTA TERRINE',price:'$17',ingridients:'ricotta, shallots, cheddar, capers'},
+            {type:'desserts', title:'SAMPHIRE FRITTERS WITH FENNEL CEVICHE',price:'$19',ingridients:'fresh samphire, plain flour, cornflower, eggs, fennel'},
+            {type:'desserts', title:'PAN FRIED COURGETTE FLOWERS	',price:'$13',ingridients:'courgette flowers, goats cheese, red onion, pine nuts'},
+            {type:'desserts', title:'SMOKED RICOTTA TERRINE',price:'$20',ingridients:'ricotta, shallots, cheddar, capers'},
+            {type:'desserts', title:'SAMPHIRE FRITTERS WITH FENNEL CEVICHE',price:'$19',ingridients:'fresh samphire, plain flour, cornflower, eggs, fennel'},
+            {type:'desserts', title:'PAN FRIED COURGETTE FLOWERS	',price:'$13',ingridients:'courgette flowers, goats cheese, red onion, pine nuts'},
+            {type:'desserts', title:'SMOKED RICOTTA TERRINE',price:'$12',ingridients:'ricotta, shallots, cheddar, capers'},
+            {type:'desserts', title:'SAMPHIRE FRITTERS WITH FENNEL CEVICHE',price:'$19',ingridients:'fresh samphire, plain flour, cornflower, eggs, fennel'},
+            {type:'desserts', title:'PAN FRIED COURGETTE FLOWERS	',price:'$13',ingridients:'courgette flowers, goats cheese, red onion, pine nuts'},
+            {type:'desserts', title:'SMOKED RICOTTA TERRINE',price:'$12',ingridients:'ricotta, shallots, cheddar, capers'},
+            {type:'desserts', title:'SAMPHIRE FRITTERS WITH FENNEL CEVICHE',price:'$19',ingridients:'fresh samphire, plain flour, cornflower, eggs, fennel'},
+            {type:'desserts', title:'PAN FRIED COURGETTE FLOWERS	',price:'$20',ingridients:'courgette flowers, goats cheese, red onion, pine nuts'},
+            {type:'desserts', title:'SMOKED RICOTTA TERRINE',price:'$12',ingridients:'ricotta, shallots, cheddar, capers'},
+            {type:'starters', title:'SMOKED RICOTTA TERRINE',price:'$17',ingridients:'ricotta, shallots, cheddar, capers'},
+            {type:'starters', title:'SAMPHIRE FRITTERS WITH FENNEL CEVICHE',price:'$19',ingridients:'fresh samphire, plain flour, cornflower, eggs, fennel'},
+            {type:'starters', title:'PAN FRIED COURGETTE FLOWERS	',price:'$13',ingridients:'courgette flowers, goats cheese, red onion, pine nuts'},
+            {type:'drinks', title:'SMOKED RICOTTA TERRINE',price:'$20',ingridients:'ricotta, shallots, cheddar, capers'},
+            {type:'drinks', title:'SAMPHIRE FRITTERS WITH FENNEL CEVICHE',price:'$19',ingridients:'fresh samphire, plain flour, cornflower, eggs, fennel'},
+            {type:'drinks', title:'PAN FRIED COURGETTE FLOWERS	',price:'$13',ingridients:'courgette flowers, goats cheese, red onion, pine nuts'},
+            {type:'drinks', title:'SMOKED RICOTTA TERRINE',price:'$12',ingridients:'ricotta, shallots, cheddar, capers'},
+            {type:'drinks', title:'SAMPHIRE FRITTERS WITH FENNEL CEVICHE',price:'$19',ingridients:'fresh samphire, plain flour, cornflower, eggs, fennel'},
+            {type:'drinks', title:'SMOKED RICOTTA TERRINE',price:'$17',ingridients:'ricotta, shallots, cheddar, capers'}
+]
+
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(1);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _Divider = __webpack_require__(8);
 
 var _Divider2 = _interopRequireDefault(_Divider);
 
-var _Specials = __webpack_require__(53);
+var _Specials = __webpack_require__(60);
 
 var _Specials2 = _interopRequireDefault(_Specials);
 
@@ -22619,13 +22874,13 @@ var Specials = function (_React$Component) {
 exports.default = Specials;
 
 /***/ }),
-/* 53 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(54);
+var content = __webpack_require__(61);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -22633,7 +22888,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(6)(content, options);
+var update = __webpack_require__(4)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -22650,15 +22905,15 @@ if(false) {
 }
 
 /***/ }),
-/* 54 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(5)(undefined);
+exports = module.exports = __webpack_require__(3)(undefined);
 // imports
 
 
 // module
-exports.push([module.i, "#specials---CZMi2 {\n  text-align: center;\n  padding: 30px 0; }\n  #specials---CZMi2 .divider__wrap---2njw3 {\n    margin: -20px auto 0; }\n  #specials---CZMi2 .specials---CZMi2 {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    width: 100%;\n    box-sizing: border-box;\n    padding: 30px; }\n    #specials---CZMi2 .specials---CZMi2 .special---3CoJm {\n      box-sizing: border-box;\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      text-align: center;\n      width: 33.33333%; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm:nth-of-type(4) img {\n        -webkit-box-ordinal-group: 2;\n            -ms-flex-order: 1;\n                order: 1; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm:nth-of-type(4) div {\n        -webkit-box-ordinal-group: 1;\n            -ms-flex-order: 0;\n                order: 0; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm:nth-of-type(5) img {\n        -webkit-box-ordinal-group: 2;\n            -ms-flex-order: 1;\n                order: 1; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm:nth-of-type(5) div {\n        -webkit-box-ordinal-group: 1;\n            -ms-flex-order: 0;\n                order: 0; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm:nth-of-type(6) img {\n        -webkit-box-ordinal-group: 2;\n            -ms-flex-order: 1;\n                order: 1; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm:nth-of-type(6) div {\n        -webkit-box-ordinal-group: 1;\n            -ms-flex-order: 0;\n                order: 0; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm div, #specials---CZMi2 .specials---CZMi2 .special---3CoJm img {\n        height: 194px;\n        box-sizing: border-box;\n        width: 50%; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm div {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: center;\n            -ms-flex-pack: center;\n                justify-content: center;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n        text-align: center;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center; }\n        #specials---CZMi2 .specials---CZMi2 .special---3CoJm div h4, #specials---CZMi2 .specials---CZMi2 .special---3CoJm div p {\n          padding: 20px 16px 8px;\n          color: black; }\n        #specials---CZMi2 .specials---CZMi2 .special---3CoJm div hr {\n          width: 45%;\n          margin: 0 auto;\n          height: 1px;\n          background-color: black; }\n        #specials---CZMi2 .specials---CZMi2 .special---3CoJm div div {\n          font-weight: 900;\n          color: black; }\n", ""]);
+exports.push([module.i, "#specials---CZMi2 {\n  text-align: center;\n  padding: 30px 0; }\n  #specials---CZMi2 h2 {\n    width: 90%;\n    text-align: center;\n    margin: auto; }\n  #specials---CZMi2 .divider__wrap---2njw3 {\n    margin: -20px auto 0;\n    padding: 0 50px; }\n  #specials---CZMi2 .specials---CZMi2 {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    width: 100%;\n    box-sizing: border-box;\n    padding: 30px 0; }\n    #specials---CZMi2 .specials---CZMi2 .special---3CoJm {\n      box-sizing: border-box;\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      text-align: center;\n      width: 100%; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm:nth-of-type(2) img {\n        -webkit-box-ordinal-group: 2;\n            -ms-flex-order: 1;\n                order: 1; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm:nth-of-type(2) div {\n        -webkit-box-ordinal-group: 1;\n            -ms-flex-order: 0;\n                order: 0; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm:nth-of-type(4) img {\n        -webkit-box-ordinal-group: 2;\n            -ms-flex-order: 1;\n                order: 1; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm:nth-of-type(4) div {\n        -webkit-box-ordinal-group: 1;\n            -ms-flex-order: 0;\n                order: 0; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm:nth-of-type(6) img {\n        -webkit-box-ordinal-group: 2;\n            -ms-flex-order: 1;\n                order: 1; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm:nth-of-type(6) div {\n        -webkit-box-ordinal-group: 1;\n            -ms-flex-order: 0;\n                order: 0; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm:nth-of-type(8) img {\n        -webkit-box-ordinal-group: 2;\n            -ms-flex-order: 1;\n                order: 1; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm:nth-of-type(8) div {\n        -webkit-box-ordinal-group: 1;\n            -ms-flex-order: 0;\n                order: 0; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm:nth-of-type(10) img {\n        -webkit-box-ordinal-group: 2;\n            -ms-flex-order: 1;\n                order: 1; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm:nth-of-type(10) div {\n        -webkit-box-ordinal-group: 1;\n            -ms-flex-order: 0;\n                order: 0; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm:nth-of-type(12) img {\n        -webkit-box-ordinal-group: 2;\n            -ms-flex-order: 1;\n                order: 1; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm:nth-of-type(12) div {\n        -webkit-box-ordinal-group: 1;\n            -ms-flex-order: 0;\n                order: 0; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm div, #specials---CZMi2 .specials---CZMi2 .special---3CoJm img {\n        height: 194px;\n        box-sizing: border-box;\n        width: 50%; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm div {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: center;\n            -ms-flex-pack: center;\n                justify-content: center;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n        text-align: center;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center; }\n        #specials---CZMi2 .specials---CZMi2 .special---3CoJm div h4, #specials---CZMi2 .specials---CZMi2 .special---3CoJm div p {\n          padding: 10px 1px 8px;\n          color: black; }\n        #specials---CZMi2 .specials---CZMi2 .special---3CoJm div hr {\n          width: 45%;\n          margin: 0 auto;\n          height: 1px;\n          background-color: black; }\n        #specials---CZMi2 .specials---CZMi2 .special---3CoJm div div {\n          font-weight: 900;\n          color: black; }\n  @media only screen and (min-width: 1024px) {\n    #specials---CZMi2 .specials---CZMi2 .special---3CoJm {\n      box-sizing: border-box;\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      text-align: center;\n      width: 33.33333%; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm:nth-of-type(4) img {\n        -webkit-box-ordinal-group: 2;\n            -ms-flex-order: 1;\n                order: 1; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm:nth-of-type(4) div {\n        -webkit-box-ordinal-group: 1;\n            -ms-flex-order: 0;\n                order: 0; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm:nth-of-type(5) img {\n        -webkit-box-ordinal-group: 2;\n            -ms-flex-order: 1;\n                order: 1; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm:nth-of-type(5) div {\n        -webkit-box-ordinal-group: 1;\n            -ms-flex-order: 0;\n                order: 0; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm:nth-of-type(6) img {\n        -webkit-box-ordinal-group: 2;\n            -ms-flex-order: 1;\n                order: 1; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm:nth-of-type(6) div {\n        -webkit-box-ordinal-group: 1;\n            -ms-flex-order: 0;\n                order: 0; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm div, #specials---CZMi2 .specials---CZMi2 .special---3CoJm img {\n        height: 194px;\n        box-sizing: border-box;\n        width: 50%; }\n      #specials---CZMi2 .specials---CZMi2 .special---3CoJm div {\n        -webkit-box-orient: horizontal;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: row;\n                flex-direction: row; }\n        #specials---CZMi2 .specials---CZMi2 .special---3CoJm div h4, #specials---CZMi2 .specials---CZMi2 .special---3CoJm div p {\n          padding: 20px 16px 8px; } }\n", ""]);
 
 // exports
 exports.locals = {
@@ -22668,7 +22923,7 @@ exports.locals = {
 };
 
 /***/ }),
-/* 55 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22684,23 +22939,23 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(2);
+var _reactDom = __webpack_require__(1);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _WeirdSection = __webpack_require__(56);
+var _WeirdSection = __webpack_require__(63);
 
 var _WeirdSection2 = _interopRequireDefault(_WeirdSection);
 
-var _SVGCoffee = __webpack_require__(59);
+var _SVGCoffee = __webpack_require__(66);
 
 var _SVGCoffee2 = _interopRequireDefault(_SVGCoffee);
 
-var _SVGVege = __webpack_require__(60);
+var _SVGVege = __webpack_require__(67);
 
 var _SVGVege2 = _interopRequireDefault(_SVGVege);
 
-var _SVGSweet = __webpack_require__(61);
+var _SVGSweet = __webpack_require__(68);
 
 var _SVGSweet2 = _interopRequireDefault(_SVGSweet);
 
@@ -22732,7 +22987,7 @@ var WeirdSection = function (_React$Component) {
       var weirdItems = this.state.weirdItems.map(function (item, i) {
         return _react2.default.createElement(
           'div',
-          { key: i },
+          { className: _WeirdSection2.default.weird__box, key: i },
           i == 0 ? _react2.default.createElement(_SVGVege2.default, null) : i == 1 ? _react2.default.createElement(_SVGSweet2.default, null) : _react2.default.createElement(_SVGCoffee2.default, null),
           _react2.default.createElement(
             'h3',
@@ -22760,13 +23015,13 @@ var WeirdSection = function (_React$Component) {
 exports.default = WeirdSection;
 
 /***/ }),
-/* 56 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(57);
+var content = __webpack_require__(64);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -22774,7 +23029,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(6)(content, options);
+var update = __webpack_require__(4)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -22791,29 +23046,30 @@ if(false) {
 }
 
 /***/ }),
-/* 57 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(5)(undefined);
+exports = module.exports = __webpack_require__(3)(undefined);
 // imports
 
 
 // module
-exports.push([module.i, "#weird__section---39Epu {\n  padding: 40px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n  background-image: url(" + __webpack_require__(58) + "); }\n  #weird__section---39Epu div {\n    width: 25%;\n    text-align: center;\n    line-height: 1.5rem; }\n    #weird__section---39Epu div h3 {\n      text-transform: uppercase;\n      margin-bottom: 20px; }\n    #weird__section---39Epu div svg {\n      width: 25%;\n      height: 25%;\n      padding: 15px; }\n", ""]);
+exports.push([module.i, "#weird__section---39Epu {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  background-image: url(" + __webpack_require__(65) + ");\n  color: #3c3c3c;\n  padding: 20px 0; }\n  #weird__section---39Epu .weird__box---2XBZx {\n    width: 90%;\n    margin: auto;\n    text-align: center;\n    line-height: 1.5rem; }\n    #weird__section---39Epu .weird__box---2XBZx h3 {\n      text-transform: uppercase;\n      margin-bottom: 20px;\n      color: #3c3c3c; }\n    #weird__section---39Epu .weird__box---2XBZx p {\n      color: #3c3c3c; }\n    #weird__section---39Epu .weird__box---2XBZx svg {\n      width: 25%;\n      height: 25%;\n      padding: 15px; }\n      #weird__section---39Epu .weird__box---2XBZx svg path {\n        fill: #3c3c3c; }\n  @media only screen and (min-width: 1024px) {\n    #weird__section---39Epu {\n      padding: 40px;\n      -webkit-box-orient: horizontal;\n      -webkit-box-direction: normal;\n          -ms-flex-direction: row;\n              flex-direction: row; }\n      #weird__section---39Epu .weird__box---2XBZx {\n        width: 25%; }\n        #weird__section---39Epu .weird__box---2XBZx svg {\n          width: 25%;\n          height: 25%;\n          padding: 15px; } }\n", ""]);
 
 // exports
 exports.locals = {
-	"weird__section": "weird__section---39Epu"
+	"weird__section": "weird__section---39Epu",
+	"weird__box": "weird__box---2XBZx"
 };
 
 /***/ }),
-/* 58 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "assets/yellow-bg.png";
 
 /***/ }),
-/* 59 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22829,7 +23085,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(2);
+var _reactDom = __webpack_require__(1);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -22872,7 +23128,7 @@ var SVGCoffee = function (_React$Component) {
 exports.default = SVGCoffee;
 
 /***/ }),
-/* 60 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22888,7 +23144,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(2);
+var _reactDom = __webpack_require__(1);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -22980,7 +23236,7 @@ var SVGVege = function (_React$Component) {
 exports.default = SVGVege;
 
 /***/ }),
-/* 61 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22996,7 +23252,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(2);
+var _reactDom = __webpack_require__(1);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -23038,269 +23294,7 @@ var SVGSweet = function (_React$Component) {
 exports.default = SVGSweet;
 
 /***/ }),
-/* 62 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(63);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {"hmr":true}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(6)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!./node_modules/css-loader/index.js?modules&localIdentName=[local]---[hash:base64:5]!./node_modules/postcss-loader/lib/index.js!./node_modules/sass-loader/lib/loader.js?modules&localIdentName=[local]---[hash:base64:5]!./index.scss", function() {
-			var newContent = require("!!./node_modules/css-loader/index.js?modules&localIdentName=[local]---[hash:base64:5]!./node_modules/postcss-loader/lib/index.js!./node_modules/sass-loader/lib/loader.js?modules&localIdentName=[local]---[hash:base64:5]!./index.scss");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 63 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(5)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "body, * {\n  margin: 0;\n  padding: 0;\n  color: #767676;\n  font-family: \"Merriweather\",serif; }\n\n#app---3ma7d {\n  width: 100vw; }\n  #app---3ma7d h2 {\n    font-weight: 100;\n    padding: 40px 0 0;\n    font-size: 2rem; }\n  #app---3ma7d .footer---1zSYP {\n    background-color: #eeeff1;\n    text-align: center;\n    color: black;\n    font-size: 1rem;\n    line-height: 2rem; }\n", ""]);
-
-// exports
-exports.locals = {
-	"app": "app---3ma7d",
-	"footer": "footer---1zSYP"
-};
-
-/***/ }),
-/* 64 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(65);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {"hmr":true}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(6)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js?modules&localIdentName=[local]---[hash:base64:5]!../../../node_modules/postcss-loader/lib/index.js!../../../node_modules/sass-loader/lib/loader.js?modules&localIdentName=[local]---[hash:base64:5]!./MenuCart.scss", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js?modules&localIdentName=[local]---[hash:base64:5]!../../../node_modules/postcss-loader/lib/index.js!../../../node_modules/sass-loader/lib/loader.js?modules&localIdentName=[local]---[hash:base64:5]!./MenuCart.scss");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 65 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(5)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, ".menu__cart---3_Cf6 * {\n  display: block;\n  margin: 0 auto;\n  text-align: center; }\n\n.menu__cart---3_Cf6 .menu__cart__navigation---19a1S {\n  list-style: none;\n  width: 50%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  margin: 0 auto;\n  padding: 20px 0; }\n\n.menu__cart---3_Cf6 .menu__page__wrapper---1gIiz {\n  margin: 40px auto;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  width: 80%;\n  min-width: 320px; }\n", ""]);
-
-// exports
-exports.locals = {
-	"menu__cart": "menu__cart---3_Cf6",
-	"menu__cart__navigation": "menu__cart__navigation---19a1S",
-	"menu__page__wrapper": "menu__page__wrapper---1gIiz"
-};
-
-/***/ }),
-/* 66 */
-/***/ (function(module, exports) {
-
-module.exports = [
-            {type:'drinks',title:'Tytuł drinka',price:'$12',ingridients:'ingridients'},
-            {type:'drinks',title:'Tytuł drinka',price:'$12',ingridients:'ingridients'},
-            {type:'drinks',title:'Tytuł drinka',price:'$12',ingridients:'ingridients'},
-            {type:'drinks',title:'Tytuł drinka',price:'$12',ingridients:'ingridients'},
-            {type:'drinks',title:'Tytuł drinka',price:'$12',ingridients:'ingridients'},
-            {type:'drinks',title:'Tytuł drinka',price:'$12',ingridients:'ingridients'},
-            {type:'desserts',title:'Tytuł dessert',price:'$12',ingridients:'ingridients'},
-            {type:'desserts',title:'Tytuł dessert',price:'$12',ingridients:'ingridients'},
-            {type:'desserts',title:'Tytuł dessert',price:'$12',ingridients:'ingridients'},
-            {type:'desserts',title:'Tytuł dessert',price:'$12',ingridients:'ingridients'},
-            {type:'desserts',title:'Tytuł dessert',price:'$12',ingridients:'ingridients'},
-            {type:'desserts',title:'Tytuł dessert',price:'$12',ingridients:'ingridients'},
-            {type:'mainDishes', title:'Tytuł mainDish',price:'$12',ingridients:'ingridients'},
-            {type:'mainDishes', title:'Tytuł mainDish',price:'$12',ingridients:'ingridients'},
-            {type:'mainDishes', title:'Tytuł mainDish',price:'$12',ingridients:'ingridients'},
-            {type:'mainDishes', title:'Tytuł mainDish',price:'$12',ingridients:'ingridients'},
-            {type:'mainDishes', title:'Tytuł mainDish',price:'$12',ingridients:'ingridients'},
-            {type:'mainDishes', title:'Tytuł mainDish',price:'$12',ingridients:'ingridients'},
-            {type:'starters', title:'Tytuł starter',price:'$12',ingridients:'ingridients'},
-            {type:'starters', title:'Tytuł starter',price:'$12',ingridients:'ingridients'},
-            {type:'starters', title:'Tytuł starter',price:'$12',ingridients:'ingridients'},
-            {type:'starters', title:'Tytuł starter',price:'$12',ingridients:'ingridients'},
-            {type:'starters', title:'Tytuł starter',price:'$12',ingridients:'ingridients'}
-]
-
-
-/***/ }),
-/* 67 */,
-/* 68 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(2);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _MenuCartPosition = __webpack_require__(69);
-
-var _MenuCartPosition2 = _interopRequireDefault(_MenuCartPosition);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var MenuCartPosition = function (_React$Component) {
-    _inherits(MenuCartPosition, _React$Component);
-
-    function MenuCartPosition(props) {
-        _classCallCheck(this, MenuCartPosition);
-
-        return _possibleConstructorReturn(this, (MenuCartPosition.__proto__ || Object.getPrototypeOf(MenuCartPosition)).call(this, props));
-    }
-
-    _createClass(MenuCartPosition, [{
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'li',
-                { className: _MenuCartPosition2.default.menu__cart__position },
-                _react2.default.createElement(
-                    'div',
-                    { className: _MenuCartPosition2.default.menu__cart__position__line },
-                    _react2.default.createElement(
-                        'div',
-                        { className: _MenuCartPosition2.default.title },
-                        this.props.position.title
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: _MenuCartPosition2.default.price },
-                        this.props.position.price
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: _MenuCartPosition2.default.ingridients },
-                    this.props.position.ingridients
-                )
-            );
-        }
-    }]);
-
-    return MenuCartPosition;
-}(_react2.default.Component);
-
-exports.default = MenuCartPosition;
-
-/***/ }),
 /* 69 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(70);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {"hmr":true}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(6)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js?modules&localIdentName=[local]---[hash:base64:5]!../../../node_modules/postcss-loader/lib/index.js!../../../node_modules/sass-loader/lib/loader.js?modules&localIdentName=[local]---[hash:base64:5]!./MenuCartPosition.scss", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js?modules&localIdentName=[local]---[hash:base64:5]!../../../node_modules/postcss-loader/lib/index.js!../../../node_modules/sass-loader/lib/loader.js?modules&localIdentName=[local]---[hash:base64:5]!./MenuCartPosition.scss");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 70 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(5)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, ".menu__cart__position---s7ljz {\n  width: 50%;\n  box-sizing: border-box;\n  text-align: left;\n  padding: 8px; }\n  .menu__cart__position---s7ljz .menu__cart__position__line---3A5TD {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    background-image: radial-gradient(#333030 1px, white 0px);\n    background-size: 11px 11px;\n    background-repeat: repeat-x;\n    background-position: left bottom; }\n    .menu__cart__position---s7ljz .menu__cart__position__line---3A5TD div {\n      padding: 1em 0 0 0;\n      background-color: white; }\n    .menu__cart__position---s7ljz .menu__cart__position__line---3A5TD .title---1Q8WS {\n      text-transform: uppercase;\n      letter-spacing: 1px; }\n    .menu__cart__position---s7ljz .menu__cart__position__line---3A5TD .price---3Iuws {\n      font-weight: 500;\n      color: #333030; }\n    .menu__cart__position---s7ljz .menu__cart__position__line---3A5TD + div, .menu__cart__position---s7ljz .menu__cart__position__line---3A5TD > div {\n      text-align: left;\n      margin: 0; }\n  .menu__cart__position---s7ljz .ingridients---8OQLy {\n    font-style: italic; }\n", ""]);
-
-// exports
-exports.locals = {
-	"menu__cart__position": "menu__cart__position---s7ljz",
-	"menu__cart__position__line": "menu__cart__position__line---3A5TD",
-	"title": "title---1Q8WS",
-	"price": "price---3Iuws",
-	"ingridients": "ingridients---8OQLy"
-};
-
-/***/ }),
-/* 71 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "assets/contact-bg.png";
-
-/***/ }),
-/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23317,11 +23311,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(2);
+var _reactDom = __webpack_require__(1);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _Footer = __webpack_require__(73);
+var _Footer = __webpack_require__(70);
 
 var _Footer2 = _interopRequireDefault(_Footer);
 
@@ -23368,13 +23362,13 @@ var Footer = exports.Footer = function (_React$Component) {
 exports.default = Footer;
 
 /***/ }),
-/* 73 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(74);
+var content = __webpack_require__(71);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -23382,7 +23376,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(6)(content, options);
+var update = __webpack_require__(4)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -23399,10 +23393,10 @@ if(false) {
 }
 
 /***/ }),
-/* 74 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(5)(undefined);
+exports = module.exports = __webpack_require__(3)(undefined);
 // imports
 
 
@@ -23412,6 +23406,53 @@ exports.push([module.i, ".footer---3Gz29 {\n  background-color: #eeeff1;\n  text
 // exports
 exports.locals = {
 	"footer": "footer---3Gz29"
+};
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(73);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(4)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!./node_modules/css-loader/index.js?modules&localIdentName=[local]---[hash:base64:5]!./node_modules/postcss-loader/lib/index.js!./node_modules/sass-loader/lib/loader.js?modules&localIdentName=[local]---[hash:base64:5]!./index.scss", function() {
+			var newContent = require("!!./node_modules/css-loader/index.js?modules&localIdentName=[local]---[hash:base64:5]!./node_modules/postcss-loader/lib/index.js!./node_modules/sass-loader/lib/loader.js?modules&localIdentName=[local]---[hash:base64:5]!./index.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "body, * {\n  margin: 0;\n  padding: 0;\n  color: #3c3c3c;\n  font-family: \"Merriweather\",serif; }\n\n#app---3ma7d {\n  width: 100vw;\n  max-width: 1440px;\n  min-width: 320px;\n  margin: 0;\n  padding: 0; }\n  #app---3ma7d h2 {\n    font-weight: 100;\n    padding: 40px 0 0;\n    font-size: 2rem; }\n", ""]);
+
+// exports
+exports.locals = {
+	"app": "app---3ma7d"
 };
 
 /***/ })

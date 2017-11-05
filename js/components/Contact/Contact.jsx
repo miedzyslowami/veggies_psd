@@ -7,9 +7,11 @@ class Contact extends React.Component {
     render() {
         return (
               <section id={scss.contact}>
-                  <div className={scss.contact__box}>
                   <h2>Contact</h2>
-                  <Divider/>
+                  <div className={scss.divider__wrap}>
+                      <Divider/>
+                  </div>
+                  <div className={scss.contact__box}>
                   <div className={scss.contact__midsection}>
                       <div>
                           <h4>Veggie</h4>
@@ -31,7 +33,7 @@ class Contact extends React.Component {
                   <img/><img/>
                   </div>
                    </div>
-                 
+
               </section>
         )
     }

@@ -1,44 +1,95 @@
-.slider__1{
+.slider__1 {
   background-image: url('../../../assets/hero01.png');
 }
-.slider__2{
+
+.slider__2 {
   background-image: url('../../../assets/hero02.png');
 }
 
-#header{
-background-repeat: no-repeat;
-background-size: cover;
-height: 650px;
-h1{
-text-indent:-100%;
-line-height: 0;
-font-size: 0;
-}
-nav{
-  display:block;
-  height: 150px;
-  ul{
+#header {
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+
+  @media only screen and (min-width:1024px) {
+    background-size: contain;
+    height: 650px;
+  }
+
+  h1 {
+    text-indent: -100%;
+    line-height: 0;
+    font-size: 0;
+  }
+  .hamburger{
+    width:100%;
     padding:20px;
-    li{
-      display: inline-block;
-      float: right;
-      padding: 20px 25px;
-    }
-    &:after{
-      clear:both;
-      content:'',attr();
-      display:block;
+    box-sizing: border-box;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    background-color: white;
+    border-radius: 4px;
+    font-weight: 100;
+    @media only screen and (min-width:1024px) {
+      display:none;
     }
   }
-}
+  .classic__menu {
+    .menu__item {
+      display: none;
+      height: 100vh;
 
-.slider__text{
-    float: right;
+      &__displayed {
+        background: black;
+        display: block;
+        color: white;
+        margin: 50px auto;
+        width: 50%;
+        list-style: none;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-align: center;
+        padding: 10px;
+
+        &:first-of-type {
+          margin: 0 auto 50px;
+          padding-top: 50px;
+        }
+      }
+    }
+    @media only screen and (min-width:1024px) {
+      display: block;
+      height: 150px;
+
+      ul {
+        padding: 20px;
+
+        .menu__item {
+          display: inline-block;
+          float: right;
+          padding: 20px 25px;
+        }
+
+        &:after {
+          clear: both;
+          content: '';
+          display: block;
+        }
+      }
+    }
+  }
+
+  .slider__text {
+    width: 100vw;
+    box-sizing: border-box;
     padding: 50px;
-    width: 38%;
     font-size: 2.3rem;
     text-align: center;
-
-}
-
+    text-shadow:-1px -1px 10px white,1px 1px 10px white,-1px 1px 10px white,1px -1px 10px white;
+    @media only screen and (min-width:1024px) {
+      float: right;
+      width: 38%;
+    }
+  }
 }

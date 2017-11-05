@@ -1,16 +1,13 @@
     .menu__cart__position{
-      width:50%;
+      width:100%;
       box-sizing: border-box;
       text-align: left;
       padding: 8px;
-
+      margin:0;
       .menu__cart__position__line{
           display: flex;
           justify-content: space-between;
-          background-image: radial-gradient(#333030 1px, white 0px);
-          background-size: 11px 11px;
-          background-repeat:repeat-x;
-          background-position: left bottom;
+
           div{
               padding:1em 0 0 0;
                background-color: white;
@@ -31,5 +28,14 @@
       }
       .ingridients{
           font-style: italic;
+      }
+      @media only screen and (min-width:1024px) {
+           width:50%;
+           .menu__cart__position__line{
+               background-image: radial-gradient(#333030 1px, white 0px);
+               background-size: 11px 11px;
+               background-repeat:repeat-x;
+               background-position: left bottom;
+           }
       }
     }

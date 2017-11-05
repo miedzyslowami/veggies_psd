@@ -4,58 +4,103 @@ $specialsHeigt:194px * 2;
 #specials{
   text-align: center;
   padding: 30px 0;
-  
+  h2{
+    width: 90%;
+    text-align: center;
+    margin: auto;
+  }
   .divider__wrap{
     margin:-20px auto 0;
+    padding:0 50px;
   }
-
-.specials{
-  display:flex;
-  flex-wrap: wrap;
-  width:100%;
-  box-sizing: border-box;
-  padding:30px;
-  .special{
+  .specials{
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width:100%;
     box-sizing: border-box;
-    display: flex;
-    text-align: center;
-    width:$specialWidth;
-    @for $i from 4 through 6{
-      &:nth-of-type(#{$i}){
-        img{
-          order:1;
-        }
-        div{
-          order:0;
-        }
-      }
-    }
-      div,img{
-        height:194px;
-        box-sizing: border-box;
-        width:$specialInnerItemWidth;
-        }
-        div{
-          display: flex;
-          justify-content: center;
-          flex-direction: column;
-          text-align: center;
-          align-items: center;
-          h4,p{
-            padding:20px 16px 8px;
-            color:black;
-          }
-          hr{
-            width:45%;
-             margin:0 auto;
-             height:1px;
-             background-color: black;
+    padding:30px 0;
+    .special{
+      box-sizing: border-box;
+      display: flex;
+      text-align: center;
+      width:100%;
+      @for $i from 1 through 6{
+        &:nth-of-type(#{2 * $i}){
+          img{
+            order:1;
           }
           div{
-            font-weight: 900;
-            color:black;
+            order:0;
           }
         }
       }
-  }
+        div,img{
+          height:194px;
+          box-sizing: border-box;
+          width:$specialInnerItemWidth;
+          }
+          div{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            align-items: center;
+
+            h4,p{
+              padding:10px 1px 8px;
+              color:black;
+            }
+            hr{
+              width:45%;
+               margin:0 auto;
+               height:1px;
+               background-color: black;
+            }
+            div{
+              font-weight: 900;
+              color:black;
+            }
+          }
+        }
+    }
+
+
+
+
+@media only screen and (min-width:1024px) {
+  .specials{
+
+    .special{
+      box-sizing: border-box;
+      display: flex;
+      text-align: center;
+      width:$specialWidth;
+      @for $i from 4 through 6{
+        &:nth-of-type(#{$i}){
+          img{
+            order:1;
+          }
+          div{
+            order:0;
+          }
+        }
+      }
+        div,img{
+          height:194px;
+          box-sizing: border-box;
+          width:$specialInnerItemWidth;
+          }
+          div{
+            flex-direction: row;
+            h4,p{
+              padding:20px 16px 8px;
+
+            }
+          }
+        }
+    }
+
+}
+
 }

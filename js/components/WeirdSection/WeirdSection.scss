@@ -1,20 +1,49 @@
-#weird__section{
-  padding:40px;
+#weird__section {
   display: flex;
   justify-content: space-around;
+  flex-direction: column;
   background-image: url('../../../assets/yellow-bg.png');
-  div{
-    width:25%;
+  color: #3c3c3c;
+  padding:20px 0;
+
+  .weird__box {
+    width: 90%;
+    margin:auto;
     text-align: center;
     line-height: 1.5rem;
-    h3{
+
+    h3 {
       text-transform: uppercase;
       margin-bottom: 20px;
+      color: #3c3c3c;
     }
-    svg{
-      width:25%;
-      height:25%;
+
+    p {
+      color: #3c3c3c;
+    }
+
+    svg {
+      width: 25%;
+      height: 25%;
       padding: 15px;
+
+      path {
+        fill: #3c3c3c;
+      }
+    }
+  }
+  @media only screen and (min-width:1024px) {
+    padding: 40px;
+    flex-direction: row;
+
+    .weird__box {
+      width: 25%;
+
+      svg {
+        width: 25%;
+        height: 25%;
+        padding: 15px;
+      }
     }
   }
 }

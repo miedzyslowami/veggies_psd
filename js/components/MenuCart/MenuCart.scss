@@ -1,12 +1,19 @@
 .menu__cart{
+  min-height: 750px;
+  .divider__wrap {
+    margin: -20px auto 0;
+    padding: 0 50px;
+  }
+
 *{
   display: block;
   margin:0 auto;
   text-align: center;
 }
+
   .menu__cart__navigation{
       list-style: none;
-      width: 50%;
+      width: 100%;
       display: flex;
       justify-content: space-between;
       margin: 0 auto;
@@ -15,8 +22,24 @@
   .menu__page__wrapper{
     margin:40px auto;
     display: flex;
-    flex-wrap: wrap;
-    width:80%;
+    flex-direction: column;
+    width:100%;
     min-width: 320px;
   }
+
+  @media only screen and (min-width:1024px) {
+    .menu__cart__navigation{  list-style: none;
+        width: 50%;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 0 auto;
+        padding:20px 0;
+    }
+    .menu__page__wrapper{
+      margin:40px auto;
+      flex-wrap: wrap;
+      width:80%;
+    }
+  }
+
 }

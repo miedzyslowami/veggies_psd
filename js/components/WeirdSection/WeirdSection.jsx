@@ -16,7 +16,7 @@ class WeirdSection extends React.Component {
   }
     render() {
       let weirdItems = this.state.weirdItems.map((item,i)=>{
-        return (<div key={i}>
+        return (<div className={scss.weird__box} key={i}>
                   {i == 0 ? <SVGVege/> : (i == 1 ? <SVGSweet/> : <SVGCoffee/>)}
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>

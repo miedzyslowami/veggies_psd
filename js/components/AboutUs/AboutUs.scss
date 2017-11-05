@@ -4,11 +4,17 @@
   background-size: 55%;
   background-position-x: 95%;
   background-color: #edeeee;
+  h2{
+    text-align: center;
+  }
+  .divider__wrap {
+    margin: -20px auto 0;
+    padding: 0 50px;
+  }
   .about__us__box{
     min-width: 320px;
-    width:36%;
+    width:100%;
     display: block;
-    margin: 50px;
     text-align: center;
     box-sizing: border-box;
     &:after{
@@ -25,4 +31,21 @@
           padding: 50px 0;
     }
   }
+
+
+  @media only screen and (min-width:1024px) {
+    .about__us__box{
+      min-width: 320px;
+      width:36%;
+      display: block;
+      margin: 50px;
+
+      img{
+            float: right;
+            padding: 50px 0;
+      }
+    }
+
+  }
+
 }
