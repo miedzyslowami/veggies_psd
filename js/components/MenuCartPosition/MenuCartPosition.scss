@@ -29,13 +29,20 @@
       .ingridients{
           font-style: italic;
       }
-      @media only screen and (min-width:1024px) {
-           width:50%;
-           .menu__cart__position__line{
-               background-image: radial-gradient(#333030 1px, white 0px);
-               background-size: 11px 11px;
-               background-repeat:repeat-x;
-               background-position: left bottom;
-           }
+      @media only screen and (min-width:768px) {
+          .menu__cart__position__line{
+              background-image: radial-gradient(#333030 1px, white 0px);
+              background-size: 11px 11px;
+              background-repeat:repeat-x;
+              background-position: left bottom;
+          }
+
       }
+
+
+    }
+    @media only screen and (min-width:1024px) {
+         .menu__cart__position{
+             width:50%;
+         }
     }

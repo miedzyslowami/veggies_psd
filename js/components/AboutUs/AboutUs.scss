@@ -10,6 +10,7 @@
   .divider__wrap {
     margin: -20px auto 0;
     padding: 0 50px;
+    text-align: center;
   }
   .about__us__box{
     min-width: 320px;
@@ -31,9 +32,18 @@
           padding: 50px 0;
     }
   }
+@media only screen and (min-width:768px) {
+      background-position-y: 175%;
+      background-size: 57%;
+      background-position-x: -41%;
+}
+
 
 
   @media only screen and (min-width:1024px) {
+    background-size: 55%;
+    background-position-x: 95%;
+      background-position-y: 100%;
     .about__us__box{
       min-width: 320px;
       width:36%;
