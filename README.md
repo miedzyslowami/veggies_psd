@@ -18,8 +18,8 @@ Infinity slider.
 ### **3.TO-DO: HAMBURGER menu**
 Hamburger with SVG transition.
 
-### **3.Dynamic cart**
-Hamburger with SVG transition.
+### **4.Dynamic menu cart**
+Dynamic listnig of dishes.
 
 
 ## **Installation:**
