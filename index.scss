@@ -7,10 +7,14 @@ body,*{
 
 #app{
   width:100vw;
-  max-width: 1440px;
   min-width: 320px;
   margin:0;
   padding:0;
+  section,header{
+    max-width: 1440px;
+    box-sizing: border-box;
+    margin: 0 auto;
+  }
   h2{
     font-weight: 100;
     padding: 40px 0 0;

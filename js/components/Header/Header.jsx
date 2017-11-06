@@ -33,7 +33,11 @@ class Header extends React.Component {
                     {menuItems}
                     </ul>
                     </nav>
-                    <div className={scss.slider__text}><p >{this.state.sliderText[0]}</p><Divider/></div>
+                    <div className={scss.slider__text}><p >{this.state.sliderText[0]}</p>
+                    <div className={scss.divider__wrap}>
+                    <Divider />
+                    </div>
+                    </div>
                     </header>)
     }
 }
