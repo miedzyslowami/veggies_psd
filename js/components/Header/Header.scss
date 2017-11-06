@@ -1,15 +1,22 @@
 .slider__1 {
-  background-image: url('../../../assets/hero01.png');
+    background-image: url('../../../assets/hero01_small.png');
+    @media only screen and (min-width:1024px) {
+        background-image: url('../../../assets/hero01.png');
+    }
 }
 
 .slider__2 {
+  background-image: url('../../../assets/hero02_small.png');
+  @media only screen and (min-width:1024px) {
   background-image: url('../../../assets/hero02.png');
+  }
 }
 
 #header {
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
+  transition:all 1s ease-in;
 
   @media only screen and (min-width:1024px) {
     height: 700px;
@@ -56,21 +63,15 @@
         text-transform: uppercase;
         letter-spacing: 2px;
         text-align: center;
-        padding: 10px;
-
-        &:first-of-type {
-          margin: 0 auto 50px;
-          padding-top: 50px;
-        }
+        padding: 50px 0;
+        width:100%;
+        height:auto;
+        margin: 50px auto;
       }
     }
-
-
-
     @media only screen and (min-width:1024px) {
       display: block;
       height: 150px;
-
       ul {
         padding: 20px;
         &:after{
@@ -79,13 +80,14 @@
           clear:both;
         }
         .menu__item {
+          // background: white;
+          margin: 2px;
+          font-weight: 500;
           display: inline-block;
           float: right;
           padding: 20px 25px;
           height: auto;
         }
-
-
       }
     }
   }

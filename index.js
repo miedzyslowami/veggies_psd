@@ -21810,34 +21810,53 @@ var Header = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this, props));
 
-        _this.slider = function () {};
+        _this.slider = function () {
+            _this.state.currentSlider === _Header2.default.slider__1 ? _this.setState({ currentSlider: _Header2.default.slider__2 }) : _this.setState({ currentSlider: _Header2.default.slider__1 });
+        };
+
+        _this.showMenu = function () {
+            _this.state.menuClass == '' ? _this.setState({ menuClass: _Header2.default.menu__item__displayed }) : _this.setState({ menuClass: '' });
+        };
 
         _this.state = {
             menuItems: ['Contact', 'Menu Cart', 'About', 'Special', 'Home'],
-            sliderText: ['Veggie gram fava bean leek dandelion silver beet eggplant bush tomato', 'Dandelion cucumber earthnut pea peanut soko zucchini']
+            sliderText: 'Veggie gram fava bean leek dandelion silver beet eggplant bush tomato',
+            currentSlider: _Header2.default.slider__1,
+            menuClass: ''
         };
         return _this;
     }
 
     _createClass(Header, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            this.setState({ currentSliderText: this.state.sliderText[0] });
+        }
+    }, {
         key: 'componentDidMount',
-        value: function componentDidMount() {}
+        value: function componentDidMount() {
+            var timer = setInterval(this.slider, 3500);
+        }
     }, {
         key: 'componentWillUnmount',
-        value: function componentWillUnmount() {}
+        value: function componentWillUnmount() {
+            clearInterval(timer);
+        }
     }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             var menuItems = this.state.menuItems.map(function (item, i) {
                 return _react2.default.createElement(
                     'li',
-                    { className: _Header2.default.menu__item, key: i },
+                    { className: _Header2.default.menu__item + ' ' + _this2.state.menuClass, key: i },
                     item
                 );
             });
             return _react2.default.createElement(
                 'header',
-                { id: _Header2.default.header, className: _Header2.default.slider__1 },
+                { id: _Header2.default.header, className: this.state.currentSlider },
                 _react2.default.createElement(
                     'h1',
                     null,
@@ -21848,7 +21867,7 @@ var Header = function (_React$Component) {
                     { className: _Header2.default.classic__menu },
                     _react2.default.createElement(
                         'div',
-                        { className: _Header2.default.hamburger },
+                        { className: _Header2.default.hamburger, onClick: this.showMenu },
                         'Menu'
                     ),
                     _react2.default.createElement(
@@ -21863,7 +21882,7 @@ var Header = function (_React$Component) {
                     _react2.default.createElement(
                         'p',
                         null,
-                        this.state.sliderText[0]
+                        this.state.sliderText
                     ),
                     _react2.default.createElement(
                         'div',
@@ -21920,7 +21939,7 @@ exports = module.exports = __webpack_require__(3)(undefined);
 
 
 // module
-exports.push([module.i, ".slider__1---YL-ui {\n  background-image: url(" + __webpack_require__(39) + "); }\n\n.slider__2---11S76 {\n  background-image: url(" + __webpack_require__(40) + "); }\n\n#header---3cc6y {\n  background-repeat: no-repeat;\n  background-size: cover;\n  height: 100vh; }\n  @media only screen and (min-width: 1024px) {\n    #header---3cc6y {\n      height: 700px; }\n      #header---3cc6y:after {\n        clear: both;\n        content: '';\n        display: block; } }\n  #header---3cc6y h1 {\n    text-indent: -100%;\n    line-height: 0;\n    font-size: 0; }\n  #header---3cc6y .hamburger---2gHcG {\n    position: absolute;\n    top: 0;\n    width: 100%;\n    padding: 20px;\n    box-sizing: border-box;\n    text-align: center;\n    text-transform: uppercase;\n    letter-spacing: 3px;\n    background-color: white;\n    border-radius: 4px;\n    font-weight: 100; }\n    @media only screen and (min-width: 1024px) {\n      #header---3cc6y .hamburger---2gHcG {\n        display: none; } }\n  #header---3cc6y .classic__menu---Ii0VQ .menu__item---3_2yT {\n    display: none;\n    height: 100vh; }\n    #header---3cc6y .classic__menu---Ii0VQ .menu__item__displayed---3Oeff {\n      background: black;\n      display: block;\n      color: white;\n      margin: 50px auto;\n      width: 50%;\n      list-style: none;\n      text-transform: uppercase;\n      letter-spacing: 2px;\n      text-align: center;\n      padding: 10px; }\n      #header---3cc6y .classic__menu---Ii0VQ .menu__item__displayed---3Oeff:first-of-type {\n        margin: 0 auto 50px;\n        padding-top: 50px; }\n  @media only screen and (min-width: 1024px) {\n    #header---3cc6y .classic__menu---Ii0VQ {\n      display: block;\n      height: 150px; }\n      #header---3cc6y .classic__menu---Ii0VQ ul {\n        padding: 20px; }\n        #header---3cc6y .classic__menu---Ii0VQ ul:after {\n          content: '';\n          display: block;\n          clear: both; }\n        #header---3cc6y .classic__menu---Ii0VQ ul .menu__item---3_2yT {\n          display: inline-block;\n          float: right;\n          padding: 20px 25px;\n          height: auto; } }\n  #header---3cc6y .slider__text---2DVEg {\n    margin-top: 40px;\n    width: 100vw;\n    box-sizing: border-box; }\n    #header---3cc6y .slider__text---2DVEg .divider__wrap---1P31f {\n      margin: -20px auto 0;\n      padding: 0 50px;\n      text-align: center; }\n    #header---3cc6y .slider__text---2DVEg p {\n      text-align: center;\n      padding: 50px;\n      font-size: 2.3rem; }\n    @media only screen and (min-width: 1024px) {\n      #header---3cc6y .slider__text---2DVEg {\n        float: right;\n        width: 38%; } }\n", ""]);
+exports.push([module.i, ".slider__1---YL-ui {\n  background-image: url(" + __webpack_require__(74) + "); }\n  @media only screen and (min-width: 1024px) {\n    .slider__1---YL-ui {\n      background-image: url(" + __webpack_require__(39) + "); } }\n\n.slider__2---11S76 {\n  background-image: url(" + __webpack_require__(75) + "); }\n  @media only screen and (min-width: 1024px) {\n    .slider__2---11S76 {\n      background-image: url(" + __webpack_require__(40) + "); } }\n\n#header---3cc6y {\n  background-repeat: no-repeat;\n  background-size: cover;\n  height: 100vh;\n  transition: all 1s ease-in; }\n  @media only screen and (min-width: 1024px) {\n    #header---3cc6y {\n      height: 700px; }\n      #header---3cc6y:after {\n        clear: both;\n        content: '';\n        display: block; } }\n  #header---3cc6y h1 {\n    text-indent: -100%;\n    line-height: 0;\n    font-size: 0; }\n  #header---3cc6y .hamburger---2gHcG {\n    position: absolute;\n    top: 0;\n    width: 100%;\n    padding: 20px;\n    box-sizing: border-box;\n    text-align: center;\n    text-transform: uppercase;\n    letter-spacing: 3px;\n    background-color: white;\n    border-radius: 4px;\n    font-weight: 100; }\n    @media only screen and (min-width: 1024px) {\n      #header---3cc6y .hamburger---2gHcG {\n        display: none; } }\n  #header---3cc6y .classic__menu---Ii0VQ .menu__item---3_2yT {\n    display: none;\n    height: 100vh; }\n    #header---3cc6y .classic__menu---Ii0VQ .menu__item__displayed---3Oeff {\n      background: black;\n      display: block;\n      color: white;\n      margin: 50px auto;\n      width: 50%;\n      list-style: none;\n      text-transform: uppercase;\n      letter-spacing: 2px;\n      text-align: center;\n      padding: 50px 0;\n      width: 100%;\n      height: auto;\n      margin: 50px auto; }\n  @media only screen and (min-width: 1024px) {\n    #header---3cc6y .classic__menu---Ii0VQ {\n      display: block;\n      height: 150px; }\n      #header---3cc6y .classic__menu---Ii0VQ ul {\n        padding: 20px; }\n        #header---3cc6y .classic__menu---Ii0VQ ul:after {\n          content: '';\n          display: block;\n          clear: both; }\n        #header---3cc6y .classic__menu---Ii0VQ ul .menu__item---3_2yT {\n          margin: 2px;\n          font-weight: 500;\n          display: inline-block;\n          float: right;\n          padding: 20px 25px;\n          height: auto; } }\n  #header---3cc6y .slider__text---2DVEg {\n    margin-top: 40px;\n    width: 100vw;\n    box-sizing: border-box; }\n    #header---3cc6y .slider__text---2DVEg .divider__wrap---1P31f {\n      margin: -20px auto 0;\n      padding: 0 50px;\n      text-align: center; }\n    #header---3cc6y .slider__text---2DVEg p {\n      text-align: center;\n      padding: 50px;\n      font-size: 2.3rem; }\n    @media only screen and (min-width: 1024px) {\n      #header---3cc6y .slider__text---2DVEg {\n        float: right;\n        width: 38%; } }\n", ""]);
 
 // exports
 exports.locals = {
@@ -23459,6 +23478,18 @@ exports.push([module.i, "body, * {\n  margin: 0;\n  padding: 0;\n  color: #3c3c3
 exports.locals = {
 	"app": "app---3ma7d"
 };
+
+/***/ }),
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "assets/hero01_small.png";
+
+/***/ }),
+/* 75 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "assets/hero02_small.png";
 
 /***/ })
 /******/ ]);
