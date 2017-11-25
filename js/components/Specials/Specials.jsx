@@ -38,7 +38,7 @@ class Specials extends React.Component {
     render() {
         let specials = this.state.specials.map((special,i) => {
             return (<div className={scss.special} key={i}>
-                    <img src={'assets/special-'+ (i + 1) +'.png'} alt={special.title}/>
+                    <img src={'assets/special-'+ (i + 1) +'.png'} alt={special.title} aria-hidden/>
                     <div>
                     <h4>{special.title}</h4>
                     <hr/>

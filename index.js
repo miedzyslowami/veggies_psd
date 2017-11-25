@@ -19950,7 +19950,7 @@ var Specials = function (_React$Component) {
                 return _react2.default.createElement(
                     'div',
                     { className: _Specials2.default.special, key: i },
-                    _react2.default.createElement('img', { src: 'assets/special-' + (i + 1) + '.png', alt: special.title }),
+                    _react2.default.createElement('img', { src: 'assets/special-' + (i + 1) + '.png', alt: special.title, 'aria-hidden': true }),
                     _react2.default.createElement(
                         'div',
                         null,
