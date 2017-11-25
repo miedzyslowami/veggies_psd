@@ -19314,7 +19314,11 @@ var Contact = function (_React$Component) {
                         _react2.default.createElement('input', { className: _Contact2.default.form__name, type: 'text', placeholder: 'Name', 'aria-label': 'name', required: true }),
                         _react2.default.createElement('input', { className: _Contact2.default.form__email, type: 'email', placeholder: 'Email', 'aria-label': 'e-mail', required: true }),
                         _react2.default.createElement('textarea', { className: _Contact2.default.write__message, placeholder: 'Message', 'aria-label': 'message' }),
-                        _react2.default.createElement('button', { className: _Contact2.default.btn__submit, type: 'submit', value: 'Send' })
+                        _react2.default.createElement(
+                            'button',
+                            { className: _Contact2.default.btn__submit, type: 'submit', value: 'Send' },
+                            'Send'
+                        )
                     )
                 )
             );

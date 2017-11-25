@@ -26,7 +26,7 @@ class Contact extends React.Component {
                       <input className={scss.form__name} type="text" placeholder='Name' aria-label='name' required/>
                       <input className={scss.form__email} type="email" placeholder='Email' aria-label='e-mail'required/>
                       <textarea className={scss.write__message}placeholder='Message' aria-label='message'></textarea>
-                      <button className={scss.btn__submit} type="submit" value="Send"></button>
+                      <button className={scss.btn__submit} type="submit" value="Send">Send</button>
                   </form>
                    </div>
 
