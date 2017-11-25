@@ -13,7 +13,7 @@ class AboutUs extends React.Component {
                         <div className={scss.about__us__box}>
                             <p>Nori grape silver beet broccoli kombu beet greens fava bean potato quandong celery. Bunya nuts black-eyed pea prairie turnip leek lentil turnip greens parsnip.
                             </p>
-                            <img src='assets/signature.png'/>
+                            <img src='assets/signature.png' alt="signature"/>
                         </div>
             </section>)
             }

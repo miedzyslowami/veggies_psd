@@ -6,7 +6,7 @@ import Divider from '../Divider/Divider.jsx';
 class Contact extends React.Component {
     render() {
         return (
-              <section id={scss.contact}>
+              <section id={scss.contact} className={scss.contact}>
                   <h2>Contact</h2>
                   <div className={scss.divider__wrap}>
                       <Divider/>
@@ -15,23 +15,19 @@ class Contact extends React.Component {
                   <div className={scss.contact__midsection}>
                       <div>
                           <h4>Veggie</h4>
-                          <p>3428 Magnolia Avenue Hackettstown, NJ 07840</p>
+                          <p className={scss.contact__address}>3428 Magnolia Avenue Hackettstown, NJ 07840</p>
                       </div>
                           <div><h4>Reservations</h4>
-                          <p>reservations@vegggie.com +48 202-555-0114</p>
+                          <a className={scss.contact__details} href="mailto:reservations@vegggie.com">reservations@vegggie.com</a><a className={scss.contact__details} href="tel:+482025550114">tel: +48 202-555-0114</a>
                       </div>
                   </div>
                   <form className={scss.contact__form}>
                         <h3>Contact us</h3>
-                      <input type="text" placeholder='Name' required/>
-                      <input type="email" placeholder='Email' required/>
-                      <textarea placeholder='Message'></textarea>
-                      <input type="submit" value="Send"/>
+                      <input className={scss.form__name} type="text" placeholder='Name' aria-label='name' required/>
+                      <input className={scss.form__email} type="email" placeholder='Email' aria-label='e-mail'required/>
+                      <textarea className={scss.write__message}placeholder='Message' aria-label='message'></textarea>
+                      <button className={scss.btn__submit} type="submit" value="Send"></button>
                   </form>
-
-                  <div className={scss.social__icons}>
-                  <img/><img/>
-                  </div>
                    </div>
 
               </section>
