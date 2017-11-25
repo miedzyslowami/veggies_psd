@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import scss from './Header.scss';
 import Divider from '../Divider/Divider.jsx';
 

@@ -18,7 +18,8 @@
   "homepage": "https://github.com/miedzyslowami/veggies_psd#readme",
   "dependencies": {
     "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react-dom": "^16.0.0",
+    "react-facebook": "^4.1.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

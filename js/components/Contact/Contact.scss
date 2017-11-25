@@ -109,7 +109,7 @@
 
       .contact__midsection {
         margin: 60px 0;
-
+        padding: 0;
         div {
           width: 50%;
           margin: auto;
@@ -123,6 +123,7 @@
             line-height: 2rem;
           }
 
+
           h4 {
             padding: 20px 0;
             font-size: 1.2rem;
@@ -135,7 +136,7 @@
         }
       }
 
-      form {
+      .contact__form {
         h3 {
           color: black;
           line-height: 2rem;
@@ -147,13 +148,13 @@
 
         .form__name,
         .form__email,
-        .write__message  {
+        .write__message {
           background-color: transparent;
           color: black;
           border: none;
           padding: 14px 0;
           border-bottom: 1px solid black;
-
+          width:40%;
           &[placeholder] {
             color: black;
             font-style: italic;
@@ -163,20 +164,19 @@
             outline: none;
           }
         }
-        .form__name,
-        .form__email {
+        & .form__name{
+          width: 40%;
+          float: left;
+            display: inline-block;
+              box-sizing: border-box;
+        }
+        & .form__email {
+          float: right;
           display: inline-block;
           width: 40%;
           box-sizing: border-box;
-          &:first-of-type {
-            float: left;
-          }
 
-          &:nth-of-type(2) {
-            float: right;
-          }
-
-          &[type='submit'] {
+        & .btn__submit {
             border: 1px solid black;
             letter-spacing: 1px;
             width: 95px;

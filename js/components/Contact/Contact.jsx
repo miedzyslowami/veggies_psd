@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import scss from './Contact.scss';
 import Divider from '../Divider/Divider.jsx';
+import LikeBtn from '../LikeBtn/LikeBtn.jsx';
 
 class Contact extends React.Component {
     render() {
@@ -28,8 +29,8 @@ class Contact extends React.Component {
                       <textarea className={scss.write__message}placeholder='Message' aria-label='message'></textarea>
                       <button className={scss.btn__submit} type="submit" value="Send">Send</button>
                   </form>
+<LikeBtn/>
                    </div>
-
               </section>
         )
     }
